@@ -75,6 +75,7 @@ A3W_fnc_setName = [_clientFunc, "fn_setName.sqf"] call mf_compile;
 A3W_fnc_towingHelper = [_serverFunc, "towingHelper.sqf"] call mf_compile;
 A3W_fnc_setLockState = { (objectFromNetId (_this select 0)) lock (_this select 1) } call mf_compile;
 A3W_fnc_disableFF = [_clientFunc, "fn_disableFF.sqf"] call mf_compile;
+A3W_fnc_setVectorUpAndDir = [_serverFunc, "fn_setVectorUpAndDir.sqf"] call mf_compile;
 allPlayers = [_serverFunc, "allPlayers.sqf"] call mf_compile;
 applyVehicleTexture = "client\systems\vehicleStore\applyVehicleTexture.sqf" call mf_compile;
 cargoToPairs = [_serverFunc, "cargoToPairs.sqf"] call mf_compile;
@@ -115,15 +116,8 @@ switchMoveGlobal = [_clientFunc, "switchMoveGlobal.sqf"] call mf_compile;
 vehicleDammagedEvent = [_serverFunc, "vehicleDammagedEvent.sqf"] call mf_compile;
 vehicleEngineEvent = [_serverFunc, "vehicleEngineEvent.sqf"] call mf_compile;
 vehicleHandleDamage = [_serverFunc, "vehicleHandleDamage.sqf"] call mf_compile;
-A3W_fnc_setVectorUpAndDir = {
-  private["_left", "_right"];
-  _left = _this select 0;
-  _right = _this select 1;
-  if (isNil "_left" || {typeName _left != typeName objNull || {isNull _left}}) exitWith {};
-  if (isNil "_right" || {typeName _right != typeName []}) exitWith {};
+vehicleHitTracking = [_serverFunc, "vehicleHitTracking.sqf"] call mf_compile;
 
-  _left setVectorDirAndUp _right;
-} call mf_compile;
 
 "pvar_switchMoveGlobal" addPublicVariableEventHandler { ((_this select 1) select 0) switchMove ((_this select 1) select 1) };
 "pvar_detachTowedObject" addPublicVariableEventHandler { (_this select 1) spawn detachTowedObject };

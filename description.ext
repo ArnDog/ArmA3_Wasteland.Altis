@@ -67,6 +67,10 @@ loadScreen = "mapConfig\Loading.jpg";
 
 
 
+#include "addons\bank\ui.hpp"
+#include "addons\bank\bank_menu.hpp"
+
+
 class RscTitles
 {
 	#include "addons\proving_ground\PG_rsctitles.hpp"

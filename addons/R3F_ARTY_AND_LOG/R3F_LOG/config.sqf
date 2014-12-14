@@ -279,5 +279,7 @@ R3F_LOG_CFG_objets_deplacables =
 	"Land_Stone_4m_F",
 	"Land_Pier_F",
 	"Land_FuelStation_Feed_F",
-	"Land_New_WiredFence_5m_F"
+	"Land_New_WiredFence_5m_F",
+	"Land_HandyCam_F",
+	"Land_Laptop_unfolded_F"
 ];

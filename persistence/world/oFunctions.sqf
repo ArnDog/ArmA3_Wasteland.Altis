@@ -58,6 +58,10 @@ o_isSaveable = {
     (cfg_staticWeaponSaving_on)
   };
 
+  if ([_obj] call sh_isMine) exitWith {
+    (cfg_MineSaving_on)
+  };
+
   if ([_obj] call sh_isCamera) exitWith {
     (cfg_cctvCameraSaving_on)
   };
@@ -85,7 +89,7 @@ o_getMaxLifeTime = {
   ARGV3(0,_class,"");
 
   if (isNil "_class") exitWith {A3W_objectLifeTime};
-  if ([_class] call sh_isMineClass) exitWith {A3W_mineLifeTime};
+  if ([_class] call sh_isMine) exitWith {A3W_mineLifeTime};
 
   A3W_objectLifeTime
 };
@@ -170,7 +174,7 @@ o_restoreObject = {_this spawn {
   };
   
   def(_obj);
-  if ([_class] call sh_isMineClass) then {
+  if ([_class] call sh_isMine) then {
     _obj = createMine[_class, _pos, [], 0];
   }
   else {
@@ -404,6 +408,19 @@ o_fillVariables = {
   _variables pushBack ["objectLocked", _obj getVariable "objectLocked"];
 };
 
+o_getVehClass = {
+  ARGVX3(0,_obj,objNull);
+
+  def(_class);
+  _class = typeOf _obj;
+
+  if ([_class] call sh_isMine) exitWith {
+    ([_class] call sh_mineAmmo2Vehicle)
+  };
+
+  _class
+};
+
 o_addSaveObject = {
   ARGVX3(0,_list,[]);
   ARGVX3(1,_obj,objNull);
@@ -419,7 +436,7 @@ o_addSaveObject = {
   def(_damage);
   def(_allowDamage);
 
-  _class = typeOf _obj;
+  _class = [_obj] call o_getVehClass;
    _netId = netId _obj;
   _pos = ASLtoATL getPosWorld _obj;
   _dir = [vectorDir _obj, vectorUp _obj];

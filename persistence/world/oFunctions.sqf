@@ -143,6 +143,23 @@ o_restoreHoursAlive = {
 
 };
 
+o_restoreMineVisibility = {
+  ARGVX3(0,_obj,objNull);
+  ARGVX3(1,_variables,[]);
+
+
+  def(_mineVisibility);
+  _mineVisibility = [_variables, "mineVisibility"] call hash_get_key;
+  if (!isARRAY(_mineVisibility)) exitWith {};
+
+  def(_side);
+  {
+    _side = _x call sh_strToSide;
+    _side revealMine _obj;
+    //diag_log format["Revealing mine %1 to %2", _obj, _side];
+  } forEach _mineVisibility;
+};
+
 o_restoreObject = {_this spawn {
   //diag_log format["%1 call o_restoreObject", _this];
   ARGVX3(0,_data_pair,[]);
@@ -175,6 +192,7 @@ o_restoreObject = {_this spawn {
   def(_turret0);
   def(_turret1);
   def(_turret2);
+  def(_mineVisibility);
 
   def(_key);
   def(_value);
@@ -221,9 +239,11 @@ o_restoreObject = {_this spawn {
   if (isSCALAR(_hours_alive) && {_max_life_time > 0 && {_hours_alive > _max_life_time}}) exitWith {
     diag_log format["object %1(%2) has been alive for %3 (max=%4), skipping it", _object_key, _class, _hours_alive, _max_life_time];
   };
-  
+
+  def(_isMine);
+  _isMine = [_class] call sh_isMine;
   def(_obj);
-  if ([_class] call sh_isMine) then {
+  if (_isMine) then {
     _obj = createMine[_class, _pos, [], 0];
   }
   else {
@@ -247,16 +267,9 @@ o_restoreObject = {_this spawn {
   };
   
   //Mine is revealed for all players in a side. Should do sth with independent side when it's possible.
-  def(_mineVisibility);
-  _mineVisibility = _obj getVariable "mineVisibility";
-  if (isARRAY(_mineVisibility)) then {
-    {
-      _side = _x call sh_strToSide;
-      _side revealMine _obj;
-  
-    } forEach _mineVisibility;
+  if (_isMine) then {
+    [_obj,_variables] call o_restoreMineVisibility;
   };
-
 
   if (not([_obj] call o_isSaveable)) exitWith {
     diag_log format["%1(%2) has been deleted, it is not saveable", _object_key, _class];

@@ -78,7 +78,8 @@ forEach
 	"A3W_globalVoiceMaxWarns",
 	"A3W_antiHackMinRecoil",
 	"A3W_spawnBeaconCooldown",
-	"A3W_spawnBeaconSpawnHeight"
+	"A3W_spawnBeaconSpawnHeight",
+	"A3W_missionFarAiDrawLines"
 ];
 
 _playerSavingOn = ["A3W_playerSaving"] call isConfigOn;

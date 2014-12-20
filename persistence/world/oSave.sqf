@@ -257,7 +257,7 @@ while {true} do
 				_missionVehicle = (_veh getVariable ["A3W_missionVehicle", false] && !(_veh getVariable ["R3F_LOG_disabled", false]));
 
 				if ((_purchasedVehicle && _purchasedVehicleSaving) ||
-				    (_missionVehicle && _missionVehicleSaving)) then
+					(_missionVehicle && _missionVehicleSaving)) then
 				{
 					_pos = ASLtoATL getPosWorld _veh;
 					{ _pos set [_forEachIndex, _x call fn_numToStr] } forEach _pos;
@@ -298,6 +298,21 @@ while {true} do
 					if !(_owner in ["","0"]) then
 					{
 						_variables pushBack ["ownerUID", _owner];
+					};
+					
+					//Saving locked state
+					
+					_r3fSide = _veh getVariable "R3F_Side";
+
+					if (!isNil "_r3fSide") then
+					{
+						_variables pushBack ["R3F_Side", _r3fSide];
+					};
+					
+					_lockedState = _veh getVariable ["vehicleLocked",0];
+					if (_lockedState>0) then
+					{
+						_variables pushBack ["vehicleLocked", _lockedState];
 					};
 
 					switch (true) do

@@ -236,7 +236,9 @@ _onCaptureFinished =
 	if ((_terrEnabled) && !(isNil "_territoryID")) then {
 		//Remove old group
 		_LVGroupName = call compile format ["LVgroup%1",_territoryID];
-		[_LVGroupName] execVM "addons\AI_spawn\LV_functions\LV_fnc_removeGroup.sqf";
+		if (!(isNil "_LVGroupName")) then {
+			[_LVGroupName] execVM "addons\AI_spawn\LV_functions\LV_fnc_removeGroup.sqf";
+		};
 		
 		//Spawn new group
 		if ((_captureTeam in [WEST,EAST])) then {

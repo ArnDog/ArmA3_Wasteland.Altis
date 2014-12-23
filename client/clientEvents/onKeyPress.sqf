@@ -86,6 +86,19 @@ switch (true) do
 			_handled = true;
 		};
 	};
+	
+	// Edited by Revvy
+    // End Key (Near arrow keys) 
+    case (_key == 207):
+    {
+        if (soundVolume != 0.1) then {
+            1 fadeSound 0.1;
+            hint "Earplugs Worn";
+        } else {
+            1 fadeSound 1;
+            hint "Earplugs Removed";
+        };
+    };
 };
 
 _handled

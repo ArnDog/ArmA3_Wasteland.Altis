@@ -100,7 +100,7 @@ allGunStoreFirearms = compileFinal str (call pistolArray + call smgArray + call 
 
 staticGunsArray = compileFinal str
 [
-	// ["Vehicle Ammo Crate", "Box_NATO_AmmoVeh_F", 2500],
+	["Vehicle Ammo Crate", "Box_NATO_AmmoVeh_F", 5000],
 	["Static Titan AT 4Rnd (NATO)", "B_static_AT_F", 2500], // Static launchers only have 4 ammo, hence the low price
 	["Static Titan AT 4Rnd (CSAT)", "O_static_AT_F", 2500],
 	["Static Titan AT 4Rnd (AAF)", "I_static_AT_F", 2500],

@@ -9,7 +9,8 @@
 { [player, _x] call fn_addManagedAction } forEach
 [
 
-	["<img image='client\icons\r3f_lock.paa'/> Lock Vehicle", "client\lockSystem\vehicle_lock.sqf", [], 1,false,false,"","[cursorTarget] call canVehicleLock"],
+	["<t color='#00CC00'><img image='client\icons\r3f_lock.paa'/> Lock Vehicle</t>", "client\lockSystem\vehicle_lock.sqf", [], 1,false,false,"","[cursorTarget] call canVehicleLock && {(cursorTarget getVariable ['A3W_missionVehicle',false]) || (cursorTarget getVariable ['A3W_purchasedVehicle',false])}"],
+	["<img image='client\icons\r3f_lock.paa'/> Lock Vehicle", "client\lockSystem\vehicle_lock.sqf", [], 1,false,false,"","[cursorTarget] call canVehicleLock && {!(cursorTarget getVariable ['A3W_missionVehicle',false]) && !(cursorTarget getVariable ['A3W_purchasedVehicle',false])}"],
 	["<img image='client\icons\r3f_unlock.paa'/> Unlock Vehicle", "client\lockSystem\vehicle_unlock.sqf", [], 1,false,false,"","[cursorTarget] call canVehicleUnlock"],
 	
 	["<t color='#FF66CC'>Give up!</t>",  "addons\Surrender\fn_surrender_request.sqf", [], 1,false,false,"","[cursorTarget] call canSuggestToSurrender"],	

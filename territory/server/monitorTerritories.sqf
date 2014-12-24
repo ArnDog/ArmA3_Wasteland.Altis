@@ -263,9 +263,11 @@ _onCaptureFinished =
 		}
 		else 
 		{
-			//is group of units
-			[_LVGroupName] execVM "addons\AI_spawn\LV_functions\LV_fnc_removeGroup.sqf";
-			MilitarizeScriptIDs = MilitarizeScriptIDs - _territoryID;
+			if (!(_useParadrop)) then {
+				//is group of units
+				[_LVGroupName] execVM "addons\AI_spawn\LV_functions\LV_fnc_removeGroup.sqf";
+				MilitarizeScriptIDs = MilitarizeScriptIDs - _territoryID;
+			};
 		};
 	};
 			
@@ -281,24 +283,21 @@ _onCaptureFinished =
 		
 		if (_useParadrop) then {
 			//Using paradrop script
-			[_captureName, _numSide, true, false, 1500, "random", true, 500, 200, _infantryAlways + (round(random _infantryRandom)), 0.5, 50, true, true, true, true, ["PATROL",_pos,_radius], true, _aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit}, _territoryID, true] execVM "addons\AI_spawn\heliParadrop.sqf";
+			[_captureName, _numSide, true, false, 1500, "random", true, 500, 200, _infantryAlways + (round(random _infantryRandom)), 0.5, 50, true, true, true, true, ["PATROL",_pos,_radius], true, _aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit}, _territoryID, false] execVM "addons\AI_spawn\heliParadrop.sqf";
 		}else{
 			//Using militarize script
 			[_pos,_numSide,_radius,_spawnInfantry,_spawnVehicles,_stayStill,[_infantryAlways,_infantryRandom],[_vehiclesAlways,_vehiclesRandom],_aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit},_territoryID] execVM "addons\AI_spawn\militarize.sqf";			
+			MilitarizeScriptIDs pushBack _territoryID;
+			//diag_log format ["MilitarizeScriptIDs: %1",MilitarizeScriptIDs];
+			[MilitarizeScriptIDs,[],1500,true,true] execVM "addons\AI_spawn\LV_functions\LV_fnc_simpleCache.sqf";	
 		};
-		
-		MilitarizeScriptIDs pushBack _territoryID;
-		
-		//diag_log format ["MilitarizeScriptIDs: %1",MilitarizeScriptIDs];
-					
-		[MilitarizeScriptIDs,[],1500,true,true] execVM "addons\AI_spawn\LV_functions\LV_fnc_simpleCache.sqf";	
 	}else{
 		[_captureName,_radius] spawn {
 			sleep 60;
 			_captureName = _this select 0;
 			_pos = getMarkerPos _captureName;
 			_radius = _this select 1;
-			_amountOfMines=round(_radius/7.5);
+			_amountOfMines=round(_radius); //We need a LOT of mines.
 			_minesArray = [
 				"APERSBoundingMine",
 				"APERSMine",

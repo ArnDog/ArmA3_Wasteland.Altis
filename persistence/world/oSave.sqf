@@ -212,7 +212,7 @@ while {true} do
 	{
 		_obj = _x;
 		
-		if ((alive _obj) && {{_obj call _isMine} && !(_obj getVariable ["isUnsaveable",false])}) then
+		if ((alive _obj) && {_obj call _isMine} && {!(_obj getVariable ["isUnsaveable",false])}) then
 		{
 			_class = typeOf _obj;
 			

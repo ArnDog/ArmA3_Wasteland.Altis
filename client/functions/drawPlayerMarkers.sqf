@@ -22,7 +22,6 @@ drawPlayerMarkers_thread = [] spawn
 	waitUntil
 	{
 		_newArray = [];
-		_isInGroup=[];
 
 		_isIndie = !(playerSide in [BLUFOR,OPFOR]);
 		_mapIconsEnabled = difficultyEnabled "map";
@@ -39,7 +38,7 @@ drawPlayerMarkers_thread = [] spawn
 			_uav = _x;
 			_uavOwner = (uavControl _uav) select 0;
 
-			if (IS_FRIENDLY_PLAYER(_uavOwner) || (isNull _uavOwner && side _uav == playerSide)) then
+			if (IS_IN_GROUP(_uavOwner)) then
 			{
 				_icon = getText (configFile >> "CfgVehicles" >> typeOf _uav >> "icon");
 				if (_icon == "") then { _icon = "iconMan" };
@@ -48,12 +47,10 @@ drawPlayerMarkers_thread = [] spawn
 				_pos = if (_mapIconsEnabled) then { DEFAULT_ICON_POS(_uav) } else { getPosASLVisual _uav };
 
 				_newArray pushBack [_icon, _color, _pos, 24, 24, getDir _uav, "", 1]; // draw icon
-				_isInGroup pushBack IS_IN_GROUP(_uavOwner);
 
 				if (showPlayerNames) then
 				{
 					_newArray pushBack ["#(argb,1,1,1)color(0,0,0,0)", _color, _pos, 25, 25, 0, "[AI]", 2, 0.05, "PuristaMedium"]; // draw text
-					_isInGroup pushBack IS_IN_GROUP(_uavOwner);
 				};
 			};
 		} forEach _allUAVs;
@@ -67,12 +64,11 @@ drawPlayerMarkers_thread = [] spawn
 				_pos = if (_mapIconsEnabled) then { DEFAULT_ICON_POS(_veh) } else { getPosASLVisual _x };
 
 				_newArray pushBack ["\A3\ui_f_curator\Data\CfgMarkers\kia_ca.paa", [0,0,0,0.6], _pos, 22, 22, 0]; // draw skull
-				_isInGroup pushBack IS_IN_GROUP(_x);
 			};
 		} forEach _allDeadMen;
 
 		{
-			if (IS_FRIENDLY_PLAYER(_x) && !(_x getVariable ["playerSpawning", false])) then
+			if (IS_IN_GROUP(_x) && !(_x getVariable ["playerSpawning", false])) then
 			{
 				_veh = vehicle _x;
 
@@ -89,12 +85,10 @@ drawPlayerMarkers_thread = [] spawn
 					if (_veh == _x && _x getVariable ["FAR_isUnconscious", 0] == 1) then { _vehColor = [1,0.25,0,1] }; // make icon orange if awaiting revive
 
 					_newArray pushBack [_icon, _vehColor, _pos, 24, 24, _dir, "", 1]; // draw icon
-					_isInGroup pushBack IS_IN_GROUP(_x);
 
 					if (_x != player && showPlayerNames) then
 					{
 						_newArray pushBack ["#(argb,1,1,1)color(0,0,0,0)", _color, _pos, 25, 25, 0, name _x, 2, 0.05, "PuristaMedium"]; // draw text
-						_isInGroup pushBack IS_IN_GROUP(_x);
 					};
 				};
 			};
@@ -104,11 +98,9 @@ drawPlayerMarkers_thread = [] spawn
 		{
 			_veh = vehicle player;
 			_newArray pushBack ["\A3\ui_f\Data\IGUI\Cfg\IslandMap\iconplayer_ca.paa", [1,0,0,1], getPosASLVisual _veh, 26, 26, getDir _veh]; // draw player circle
-			_isInGroup pushBack IS_IN_GROUP(_veh);
 		};
 		
 		drawPlayerMarkers_array = _newArray;
-		isInGroup_array = _isInGroup;
 		false
 	};
 };
@@ -129,11 +121,7 @@ _mapCtrl = _display displayCtrl 51;
 if (!isNil "drawPlayerMarkers_mapDraw") then { _mapCtrl ctrlRemoveEventHandler ["Draw", drawPlayerMarkers_mapDraw] };
 drawPlayerMarkers_mapDraw = _mapCtrl ctrlAddEventHandler ["Draw",
 {
-	{	
-		if (isInGroup_array select _forEachIndex) then {
-			(_this select 0) drawIcon _x;
-		};
-	} forEach drawPlayerMarkers_array;
+	{(_this select 0) drawIcon _x;} forEach drawPlayerMarkers_array;
 }];
 
 // GPS
@@ -143,9 +131,5 @@ _mapCtrl = _display displayCtrl 101;
 if (!isNil "drawPlayerMarkers_gpsDraw") then { _mapCtrl ctrlRemoveEventHandler ["Draw", drawPlayerMarkers_gpsDraw] };
 drawPlayerMarkers_gpsDraw = _mapCtrl ctrlAddEventHandler ["Draw",
 {
-	{
-		if (isInGroup_array select _forEachIndex) then {
-			(_this select 0) drawIcon _x;
-		};
-	} forEach drawPlayerMarkers_array;
+	{(_this select 0) drawIcon _x;} forEach drawPlayerMarkers_array;
 }];

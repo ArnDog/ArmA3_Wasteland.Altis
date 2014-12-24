@@ -130,8 +130,6 @@ _onCaptureFinished =
 {
 	private ["_oldTeam", "_captureTeam", "_captureValue", "_captureName", "_captureDescription", "_descriptiveTeamName", "_otherTeams", "_captureColor", "_groupCaptures", "_msgWinners", "_msgOthers"];
 
-	diag_log format["_onCaptureFinished called with %1", _this];
-
 	_oldTeam = _this select 0;
 	_captureTeam = _this select 1;
 	_captureValue = _this select 2;
@@ -167,64 +165,80 @@ _onCaptureFinished =
 	["pvar_updateTerritoryMarkers", [_captureTeam, [[_captureName], false, _captureTeam, true]]] call fn_publicVariableAll;
 	["pvar_updateTerritoryMarkers", [_otherTeams, [[_captureName], false, _captureTeam, false]]] call fn_publicVariableAll;
 
-	_msgWinners = format ["Your team has successfully captured %1 and you've received $%2", _captureDescription, _captureValue];
+	if (_captureTeam in [BLUFOR,OPFOR]) then {
+		_msgWinners = format ["Your team has successfully captured %1 and you've received $%2. Troops will arrive shortly.", _captureDescription, _captureValue];
+	}else{
+		_msgWinners = format ["Your team has successfully captured %1 and you've received $%2. Mines will be ready in 60 seconds.", _captureDescription, _captureValue];
+	};
+	
 	["pvar_territoryActivityHandler", [_captureTeam, [_msgWinners, _captureValue]]] call fn_publicVariableAll;
 
 	_msgOthers = format ["%1 has captured %2", _descriptiveTeamName, _captureDescription];
 	["pvar_territoryActivityHandler", [_otherTeams, [_msgOthers]]] call fn_publicVariableAll;
 	
-	//Militarize this territory
-	
+//Militarize this territory
+
+	private ["_terrEnabled","_useParadrop","_numSide","_pos","_radius","_spawnInfantry","_spawnVehicles","_stayStill","_infantryAlways","_infantryRandom","_vehiclesAlways","_vehiclesRandom","_aiSkills","_LVGroupName","_groupID","_customInit","_territoryID"];
+
 	//Initialize new variables
+	if (isNil "MilitarizeScriptIDs") then {
+		MilitarizeScriptIDs=[];
+	};
 	//This is default variables for all zones
 	// If you want to specify another amount for special territory use switch below
 	_terrEnabled=true;
+	_useParadrop=true; //No vehicles is paradrop
 	_numSide = 0;
 	_pos = [];
-	_radius = 100; //radius
+	_size = getMarkerSize _captureName;
+	_radius = (_size select 0) max (_size select 1);
 	_spawnInfantry = [true,false]; //Land, Water
 	_spawnVehicles = [true,false,false]; //Land,Water,Air
 	_stayStill = false; //Stay still and do not patrol
-	_infantryAlways = 3;
-	_infantryRandom = 3;
-	_vehiclesAlways = 1;
-	_vehiclesRandom = 1;
+	_infantryAlways = _radius*0.035; //3.5% from radius
+	_infantryRandom = 0;
+	_vehiclesAlways = 0;
+	_vehiclesRandom = 0;
 	_aiSkills = "default"; //Default or an array
-	_group = nil; //Created new group
+	_LVGroupName = nil;
+	_groupID = nil;
 	_customInit = nil; //Custom init for each unit. Lock vehicle, gear and so on. Lock vehicle: "if (this isKindOf 'Vehicle') then {this lock 2}";
 	_territoryID = nil;
 	
-	//You are want to specify different amount of forces for territory use this
+	//If you want to specify different settings for territory use this
+	
 	switch (_captureName) do {
-		case (TERRITORY_THRONOS_CASTLE) : {
-			//i.e. you want this territory alwys to have 20 infantry
+		case ("TERRITORY_THRONOS_CASTLE") : {
+			//i.e. you want this territory always to have 20 infantry
 			//then it will be:
 			//_infantryAlways = 20;
 			//and so on
 		};
-		case (TERRITORY_KASTRO_CASTLE) : {
+		case ("TERRITORY_KASTRO_CASTLE") : {
 			//this one is off
 			//_terrEnabled=false;
 		};
-		case (TERRITORY_SW_AIRFIELD) : {};
-		case (TERRITORY_MAIN_AIRBASE_SW) : {};
-		case (TERRITORY_MAIN_AIRBASE_CENTER) : {};
-		case (TERRITORY_MAIN_AIRBASE_NE) : {};
-		case (TERRITORY_NE_AIRFIELD) : {};
-		case (TERRITORY_SE_AIRFIELD) : {};
-		case (TERRITORY_NW_AIRFIELD) : {};
-		case (TERRITORY_SALTFLATS_AIRFIELD) : {};
-		case (TERRITORY_WEST_POWER_PLANT) : {};
-		case (TERRITORY_CENTER_POWER_PLANT) : {};
-		case (TERRITORY_EAST_POWER_PLANT) : {};
-		case (TERRITORY_IRAKLIA_RUINS) : {};
-		case (TERRITORY_ARTINARKI_RUINS) : {};
-		case (TERRITORY_MOLOS_TRANSMITTER) : {};
-		case (TERRITORY_DIDYMOS_TRANSMITTER_1) : {};
-		case (TERRITORY_DIDYMOS_TRANSMITTER_2) : {};
-		case (TERRITORY_MAGOS_TRANSMITTER) : {};
-		case (TERRITORY_PYRSOS_TRANSMITTER) : {};
-		case (TERRITORY_MILITARY_RESEARCH) : {};
+		case ("TERRITORY_SW_AIRFIELD") : {};
+		case ("TERRITORY_MAIN_AIRBASE_SW") : {};
+		case ("TERRITORY_MAIN_AIRBASE_CENTER") : {
+			_vehiclesAlways=1;
+		};
+		case ("TERRITORY_MAIN_AIRBASE_NE") : {};
+		case ("TERRITORY_NE_AIRFIELD") : {};
+		case ("TERRITORY_SE_AIRFIELD") : {};
+		case ("TERRITORY_NW_AIRFIELD") : {};
+		case ("TERRITORY_SALTFLATS_AIRFIELD") : {};
+		case ("TERRITORY_WEST_POWER_PLANT") : {};
+		case ("TERRITORY_CENTER_POWER_PLANT") : {};
+		case ("TERRITORY_EAST_POWER_PLANT") : {};
+		case ("TERRITORY_IRAKLIA_RUINS") : {};
+		case ("TERRITORY_ARTINARKI_RUINS") : {};
+		case ("TERRITORY_MOLOS_TRANSMITTER") : {};
+		case ("TERRITORY_DIDYMOS_TRANSMITTER_1") : {};
+		case ("TERRITORY_DIDYMOS_TRANSMITTER_2") : {};
+		case ("TERRITORY_MAGOS_TRANSMITTER") : {};
+		case ("TERRITORY_PYRSOS_TRANSMITTER") : {};
+		case ("TERRITORY_MILITARY_RESEARCH") : {};
 	};
 	
 	{
@@ -233,21 +247,68 @@ _onCaptureFinished =
 		};
 	} forEach allMapMarkers;
 	
-	if ((_terrEnabled) && !(isNil "_territoryID")) then {
-		//Remove old group
-		_LVGroupName = call compile format ["LVgroup%1",_territoryID];
-		if (!(isNil "_LVGroupName")) then {
+
+	if (!(_terrEnabled)) exitWith {};
+	if (isNil "_territoryID") exitWith {diag_log format ["No _territoryID for %1",_captureName];};
+		
+	//Prepare groupName
+	_LVGroupName = missionNamespace getVariable (format ["LVgroup%1", _territoryID]);
+	//call compile format ["private ['LVgroup%1']; _LVGroupName=LVgroup%1;",_territoryID];
+		
+	//Remove old group
+	if (!(isNil "_LVGroupName")) then {
+		if (typeName _LVGroupName == typeName []) then {
+			//is mines array
+			{deleteVehicle _x} forEach _LVGroupName;
+		}
+		else 
+		{
+			//is group of units
 			[_LVGroupName] execVM "addons\AI_spawn\LV_functions\LV_fnc_removeGroup.sqf";
+			MilitarizeScriptIDs = MilitarizeScriptIDs - _territoryID;
+		};
+	};
+			
+	_pos = getMarkerPos _captureName;
+	
+	//Spawn new group
+	if ((_captureTeam in [WEST,EAST])) then {
+	
+		switch (_captureTeam) do {
+			case (WEST): {_numSide=1} ;
+			case (EAST): {_numSide=2} ;
 		};
 		
-		//Spawn new group
-		if ((_captureTeam in [WEST,EAST])) then {
+		if (_useParadrop) then {
+			//Using paradrop script
+			[_captureName, _numSide, true, false, 1500, "random", true, 500, 200, _infantryAlways + (round(random _infantryRandom)), 0.5, 50, true, true, true, true, ["PATROL",_pos,_radius], true, _aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit}, _territoryID, true] execVM "addons\AI_spawn\heliParadrop.sqf";
+		}else{
+			//Using militarize script
+			[_pos,_numSide,_radius,_spawnInfantry,_spawnVehicles,_stayStill,[_infantryAlways,_infantryRandom],[_vehiclesAlways,_vehiclesRandom],_aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit},_territoryID] execVM "addons\AI_spawn\militarize.sqf";			
+		};
+		
+		MilitarizeScriptIDs pushBack _territoryID;
+		
+		//diag_log format ["MilitarizeScriptIDs: %1",MilitarizeScriptIDs];
+					
+		[MilitarizeScriptIDs,[],1500,true,true] execVM "addons\AI_spawn\LV_functions\LV_fnc_simpleCache.sqf";	
+	}else{
+		[_captureName,_radius] spawn {
+			sleep 60;
+			_captureName = _this select 0;
 			_pos = getMarkerPos _captureName;
-			switch (_captureTeam) do {
-				case (WEST): {_numSide=1} ;
-				case (EAST): {_numSide=2} ;
+			_radius = _this select 1;
+			_amountOfMines=round(_radius/7.5);
+			_minesArray = [
+				"APERSBoundingMine",
+				"APERSMine",
+				"ATMine"
+			];
+			for "_i" from 1 to _amountOfMines do {
+				_type = _minesArray call BIS_fnc_selectRandom;
+				_obj = createMine [_type,_pos,[_captureName],_radius];
+				_obj setVariable ["isUnsaveable",true,true];
 			};
-			[_pos,_numSide,_radius,_spawnInfantry,_spawnVehicles,_stayStill,[_infantryAlways,_infantryRandom],[_vehiclesAlways,_vehiclesRandom],_aiSkills,_group,_customInit,_territoryID] execVM "addons\AI_spawn\militarize.sqf";
 		};
 	};
 };

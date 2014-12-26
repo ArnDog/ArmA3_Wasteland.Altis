@@ -212,7 +212,11 @@ while {true} do
 	{
 		_obj = _x;
 		
-		if ((alive _obj) && {_obj call _isMine} && {!(_obj getVariable ["isUnsaveable",false])}) then
+		if (isNil "unsaveableArray") then {
+			unsaveableArray=[];
+		};
+			
+		if ((alive _obj) && {_obj call _isMine} && {!(_obj in unsaveableArray)}) then
 		{
 			_class = typeOf _obj;
 			
@@ -223,7 +227,7 @@ while {true} do
 				{ _pos set [_forEachIndex, _x call fn_numToStr] } forEach _pos;
 				_dir = [vectorDir _obj, vectorUp _obj];
 				_damage = damage _obj;
-				_allowDamage = if (_obj getVariable ["allowDamage", false]) then { 1 } else { 0 };
+				_allowDamage = 1;
 					
 				_spawningTime = missionNamespace getVariable format["%1_spawningTime",_netId];	
 

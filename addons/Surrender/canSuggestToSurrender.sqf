@@ -12,12 +12,12 @@ _result=false;
 switch (true) do {
 	case (!isPlayer _target): {}; // Not a player
 	case (!alive _target): {}; // Target is dead
-	case (player getVariable ["sur_isSurrendering",false]): {}; // Player is surrendering
+	case (_target getVariable ["sur_isSurrendering",false]): {}; // Player is surrendering
 	case (side player == side _target): {}; // Is in the same team
 	case (side _target in [CIVILIAN]): {}; //Is not in CIV
 	case (player distance _target > 350): {}; // It more then 350m
-	case (_target getVariable ["sur_isSurrendering",false]): {hint format ["%1 is surrendering!",name _target]}; // Target is surrendering
-	case (_target getVariable ["sur_gotSuggestion",false]): {hint format ["Waiting for %1 response...",name _target]}; // Target is suggested to surrender already
-	default {hint ""; _result=true};
+	case (_target getVariable ["sur_isSurrendering",false]): {}; // Target is surrendering
+	case (_target getVariable ["sur_gotSuggestion",false]): {}; // Target is suggested to surrender already
+	default {_result=true};
 };
 (_result);

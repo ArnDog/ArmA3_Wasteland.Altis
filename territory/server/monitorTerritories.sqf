@@ -178,7 +178,7 @@ _onCaptureFinished =
 	
 //Militarize this territory
 
-	private ["_terrEnabled","_useParadrop","_numSide","_pos","_radius","_spawnInfantry","_spawnVehicles","_stayStill","_infantryAlways","_infantryRandom","_vehiclesAlways","_vehiclesRandom","_aiSkills","_LVGroupName","_groupID","_customInit","_territoryID"];
+	private ["_terrEnabled","_useParadrop","_numSide","_pos","_radius","_spawnInfantry","_spawnVehicles","_stayStill","_infantryAlways","_infantryRandom","_vehiclesAlways","_vehiclesRandom","_aiSkills","_groupID","_customInit","_territoryID"];
 
 	//Initialize new variables
 	if (isNil "MilitarizeScriptIDs") then {
@@ -191,19 +191,29 @@ _onCaptureFinished =
 	_numSide = 0;
 	_pos = [];
 	_size = getMarkerSize _captureName;
+	_dir = "random"; //markerDir _captureName
 	_radius = (_size select 0) max (_size select 1);
 	_spawnInfantry = [true,false]; //Land, Water
 	_spawnVehicles = [true,false,false]; //Land,Water,Air
 	_stayStill = false; //Stay still and do not patrol
-	_infantryAlways = _radius*0.035; //3.5% from radius
+	_infantryAlways = _radius*0.03; //3% from radius
 	_infantryRandom = 0;
 	_vehiclesAlways = 0;
 	_vehiclesRandom = 0;
 	_aiSkills = "default"; //Default or an array
-	_LVGroupName = nil;
 	_groupID = nil;
-	_customInit = nil; //Custom init for each unit. Lock vehicle, gear and so on. Lock vehicle: "if (this isKindOf 'Vehicle') then {this lock 2}";
+	 //Custom init for each unit. Lock vehicle, gear and so on. Lock vehicle: "if (this isKindOf 'Vehicle') then {this lock 2}";
+	 
+	_customInit = "[[this], 'A3W_fnc_disableFF',true, true] call BIS_fnc_MP;";
+	
 	_territoryID = nil;
+	
+	// Get Value
+	// (missionNamespace getVariable (format ["LVgroup%1", _territoryID]));
+
+	// Set Value
+	// (missionNamespace setVariable [format["LVgroup%1", _territoryID], [] ]);
+
 	
 	//If you want to specify different settings for territory use this
 	
@@ -250,22 +260,19 @@ _onCaptureFinished =
 
 	if (!(_terrEnabled)) exitWith {};
 	if (isNil "_territoryID") exitWith {diag_log format ["No _territoryID for %1",_captureName];};
-		
-	//Prepare groupName
-	_LVGroupName = missionNamespace getVariable (format ["LVgroup%1", _territoryID]);
-	//call compile format ["private ['LVgroup%1']; _LVGroupName=LVgroup%1;",_territoryID];
-		
+				
 	//Remove old group
-	if (!(isNil "_LVGroupName")) then {
-		if (typeName _LVGroupName == typeName []) then {
+	if (!(isNil {(missionNamespace getVariable (format ["LVgroup%1", _territoryID]))})) then {
+		if (typeName (missionNamespace getVariable (format ["LVgroup%1", _territoryID])) == typeName []) then {
 			//is mines array
-			{deleteVehicle _x} forEach _LVGroupName;
+			//diag_log format [":::MINES INSIDE REMOVE::: %1",(missionNamespace getVariable (format ["LVgroup%1", _territoryID]))];
+			{deleteVehicle _x} forEach (missionNamespace getVariable (format ["LVgroup%1", _territoryID]));
 		}
 		else 
 		{
 			if (!(_useParadrop)) then {
 				//is group of units
-				[_LVGroupName] execVM "addons\AI_spawn\LV_functions\LV_fnc_removeGroup.sqf";
+				[(missionNamespace getVariable (format ["LVgroup%1", _territoryID]))] execVM "addons\AI_spawn\LV_functions\LV_fnc_removeGroup.sqf";
 				MilitarizeScriptIDs = MilitarizeScriptIDs - _territoryID;
 			};
 		};
@@ -283,7 +290,8 @@ _onCaptureFinished =
 		
 		if (_useParadrop) then {
 			//Using paradrop script
-			[_captureName, _numSide, true, false, 1500, "random", true, 500, 200, _infantryAlways + (round(random _infantryRandom)), 0.5, 50, true, true, true, true, ["PATROL",_pos,_radius], true, _aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit}, _territoryID, false] execVM "addons\AI_spawn\heliParadrop.sqf";
+			//
+			[_captureName, _numSide, true, false, 1000, _dir, true, 500, 100, _infantryAlways + (round(random _infantryRandom)), 0.5, 50, true, true, true, true, ["PATROL",_pos,_radius], true, _aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit}, _territoryID, false] execVM "addons\AI_spawn\heliParadrop.sqf";
 		}else{
 			//Using militarize script
 			[_pos,_numSide,_radius,_spawnInfantry,_spawnVehicles,_stayStill,[_infantryAlways,_infantryRandom],[_vehiclesAlways,_vehiclesRandom],_aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit},_territoryID] execVM "addons\AI_spawn\militarize.sqf";			
@@ -292,22 +300,31 @@ _onCaptureFinished =
 			[MilitarizeScriptIDs,[],1500,true,true] execVM "addons\AI_spawn\LV_functions\LV_fnc_simpleCache.sqf";	
 		};
 	}else{
-		[_captureName,_radius] spawn {
-			sleep 60;
+		[_captureName,_radius,_territoryID] spawn {
+			sleep 5;
+			if (isNil "unsaveableArray") then {
+				unsaveableArray=[];
+			};
 			_captureName = _this select 0;
 			_pos = getMarkerPos _captureName;
 			_radius = _this select 1;
+			_territoryID = _this select 2;
 			_amountOfMines=round(_radius); //We need a LOT of mines.
 			_minesArray = [
 				"APERSBoundingMine",
 				"APERSMine",
 				"ATMine"
 			];
+			
+			(missionNamespace setVariable [format["LVgroup%1", _territoryID], [] ]);
 			for "_i" from 1 to _amountOfMines do {
 				_type = _minesArray call BIS_fnc_selectRandom;
 				_obj = createMine [_type,_pos,[_captureName],_radius];
-				_obj setVariable ["isUnsaveable",true,true];
+												
+				(missionNamespace getVariable (format ["LVgroup%1", _territoryID])) pushBack _obj;
+				unsaveableArray pushBack _obj;
 			};
+			//diag_log format [":::MINES::: %1",(missionNamespace getVariable (format ["LVgroup%1", _territoryID]))];
 		};
 	};
 };

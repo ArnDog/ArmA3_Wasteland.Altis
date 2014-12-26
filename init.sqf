@@ -65,7 +65,7 @@ if (isServer) then
 [] execVM "addons\proving_ground\init.sqf";
 [] execVM "addons\scripts\DynamicWeatherEffects.sqf";
 [] execVM "addons\JumpMF\init.sqf";
-[] execVM "addons\earplug\earplugInit.sqf";
+//[] execVM "addons\earplug\earplugInit.sqf";
 [] execVM "addons\atm\bank_init.sqf";
 [] execVM "addons\outlw_magRepack\MagRepack_init_sv.sqf";
 [] execVM "addons\Explosives-To-Vehicle\init.sqf";

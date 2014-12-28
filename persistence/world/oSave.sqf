@@ -104,6 +104,17 @@ while {true} do
 					{
 						_variables pushBack ["water", _obj getVariable ["water", 20]];
 					};
+					
+					case (_obj isKindOf "Building"):
+					{
+						_doorsAmount = [_obj] call fn_getDoorsAmount;
+						for "_i" from 1 to _doorsAmount do {
+							_doorState = _obj getVariable [format ["bis_disabled_Door_%1",_i],0];
+							if ((_doorState==1)) then {
+								_variables pushBack [format ["bis_disabled_Door_%1",_i],_doorState];
+							};
+						};
+					};
 				};
 
 				_owner = _obj getVariable ["ownerUID", ""];

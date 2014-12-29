@@ -96,7 +96,7 @@ class Mission
 	randomSeed=14957468;
 	class Intel
 	{
-		briefingName="A3Wasteland Altis MERCS GAMERS v1.0";
+		briefingName="A3Wasteland Altis MERCS GAMERS v1.1";
 		overviewText="Wasteland survival sandbox by MERCS GAMERS - visit mercsgamers.com for more details. Teamspeak: 104.236.58.214";
 		resistanceWest=0;
 		startWeather=0.10000001;

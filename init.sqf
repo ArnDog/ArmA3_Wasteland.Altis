@@ -86,3 +86,4 @@ if (isServer) then
 [] execVM "addons\JTS_PM\Functions.sqf";
 [] execVM "addons\scripts\zlt_fastrope.sqf";
 [] execVM "addons\buildingLocker\init.sqf";
+[] execVM "addons\AF_Keypad\AF_KP_vars.sqf";

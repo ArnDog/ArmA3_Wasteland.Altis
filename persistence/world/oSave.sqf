@@ -107,7 +107,14 @@ while {true} do
 					
 					case (_obj isKindOf "Building"):
 					{
+						_pass = _obj getVariable "password";
+						
+						if (!(isNil "_pass")) then {
+							_variables pushBack ["password",_pass];
+						};
+						
 						_doorsAmount = [_obj] call fn_getDoorsAmount;
+						
 						for "_i" from 1 to _doorsAmount do {
 							_doorState = _obj getVariable [format ["bis_disabled_Door_%1",_i],0];
 							if ((_doorState==1)) then {

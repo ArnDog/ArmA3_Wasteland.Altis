@@ -58,6 +58,8 @@ loadScreen = "mapConfig\Loading.jpg";
 #include "addons\atm\bank.hpp"
 #include "addons\taw_vd\dialog.hpp"
 #include "addons\outlw_magRepack\MagRepack_Config.hpp"
+#include "addons\AF_Keypad\AF_KP_defines.hpp"
+#include "addons\AF_Keypad\AF_KP_dialogs.hpp"
 
 class RscTitles
 {

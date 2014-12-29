@@ -31,7 +31,6 @@ publicVariable "currentInvites";
 	} forEach PVAL;
 };
 
-	["pvar_teamKillUnlock", { PVAL call teamKillUnlock }]
 { (_x select 0) addPublicVariableEventHandler (_x select 1) } forEach
 [
 	["PlayerCDeath", { PVAL call server_playerDied }],

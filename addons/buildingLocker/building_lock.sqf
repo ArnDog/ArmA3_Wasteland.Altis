@@ -33,7 +33,7 @@ _checks = {
 		case (vehicle player != player): {_text = ERR_IN_VEHICLE};
 		case (!alive _building): {_error = ERR_DESTROYED};
 		case (([_building] call fn_getDoorsAmount)<1): {_text = ERR_NO_DOORS};
-		case ((_building distance player) > 10): {_text = ERR_TOO_FAR_AWAY};
+		case (player distance _building > (sizeOf typeOf _building / 2) max 15): {_text = ERR_TOO_FAR_AWAY};
 		case (!(_building isKindOf 'Building')): {_text = ERR_NOT_BUILDING}; 	//Not building
 		case (!(typeOf _building in _allowedList)): {_text = ERR_NOT_ALLOWED}; //Not in allowed list
 		case ((_building getVariable ["ownerUID",""]) != (getPlayerUID player)) : {_text = ERR_NOT_OWNER}; //Not owned by player

@@ -13,7 +13,7 @@ _class = typeOf _target;
 _result = false;
 switch (true) do {
 	case (([_target] call fn_getDoorsAmount)<1): {};
-	case ((_target distance player) > 10): {};
+	case (player distance _target > (sizeOf typeOf _target / 2) max 15): {};
 	case (!(_target isKindOf 'Building')): {}; 	//Not building
 	case (!(_class in _allowedList)): {}; 		//Not in allowed list
 	case ((_target getVariable ["ownerUID",""]) != (getPlayerUID player)) : {}; //Not owned by player

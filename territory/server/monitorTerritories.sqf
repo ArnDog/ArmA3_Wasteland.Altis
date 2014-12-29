@@ -196,7 +196,7 @@ _onCaptureFinished =
 	_spawnInfantry = [true,false]; //Land, Water
 	_spawnVehicles = [true,false,false]; //Land,Water,Air
 	_stayStill = false; //Stay still and do not patrol
-	_infantryAlways = _radius*0.03; //3% from radius
+	_infantryAlways = _radius*0.015; //1.5% from radius
 	_infantryRandom = 0;
 	_vehiclesAlways = 0;
 	_vehiclesRandom = 0;
@@ -230,9 +230,7 @@ _onCaptureFinished =
 		};
 		case ("TERRITORY_SW_AIRFIELD") : {};
 		case ("TERRITORY_MAIN_AIRBASE_SW") : {};
-		case ("TERRITORY_MAIN_AIRBASE_CENTER") : {
-			_vehiclesAlways=1;
-		};
+		case ("TERRITORY_MAIN_AIRBASE_CENTER") : {};
 		case ("TERRITORY_MAIN_AIRBASE_NE") : {};
 		case ("TERRITORY_NE_AIRFIELD") : {};
 		case ("TERRITORY_SE_AIRFIELD") : {};
@@ -291,7 +289,7 @@ _onCaptureFinished =
 		if (_useParadrop) then {
 			//Using paradrop script
 			//
-			[_captureName, _numSide, true, false, 1000, _dir, true, 500, 100, _infantryAlways + (round(random _infantryRandom)), 0.5, 50, true, true, true, true, ["PATROL",_pos,_radius], true, _aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit}, _territoryID, false] execVM "addons\AI_spawn\heliParadrop.sqf";
+			[_captureName, _numSide, true, false, 1000, _dir, true, 500, 100, _infantryAlways + (round(random _infantryRandom)), 0.5, 50, true, true, true, true, ["PATROL",_pos,(_radius/2)], true, _aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit}, _territoryID, false] execVM "addons\AI_spawn\heliParadrop.sqf";
 		}else{
 			//Using militarize script
 			[_pos,_numSide,_radius,_spawnInfantry,_spawnVehicles,_stayStill,[_infantryAlways,_infantryRandom],[_vehiclesAlways,_vehiclesRandom],_aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit},_territoryID] execVM "addons\AI_spawn\militarize.sqf";			
@@ -309,7 +307,7 @@ _onCaptureFinished =
 			_pos = getMarkerPos _captureName;
 			_radius = _this select 1;
 			_territoryID = _this select 2;
-			_amountOfMines=round(_radius); //We need a LOT of mines.
+			_amountOfMines=round(_radius*0.5); //We need a LOT of mines.
 			_minesArray = [
 				"APERSBoundingMine",
 				"APERSMine",

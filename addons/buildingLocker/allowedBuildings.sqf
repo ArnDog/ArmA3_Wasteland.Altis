@@ -7,7 +7,6 @@
 //	@file Description: Defines an allowed buildings list.
 
 _allowedList = [
-	"Land_Cargo_Patrol_V1_F",
 	"Land_Cargo_Tower_V1_F",
 	"Land_i_Stone_Shed_V3_F",
 	"Land_i_Stone_Shed_V1_F",

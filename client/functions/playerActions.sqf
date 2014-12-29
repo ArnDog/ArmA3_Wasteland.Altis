@@ -9,15 +9,15 @@
 { [player, _x] call fn_addManagedAction } forEach
 [
 
-	["<t color='#00FF00'><img image='client\icons\r3f_lock.paa'/> Lock Vehicle</t>", "client\lockSystem\vehicle_lock.sqf", [], 1,false,false,"","[cursorTarget] call canVehicleLock && {(cursorTarget getVariable ['A3W_missionVehicle',false]) || (cursorTarget getVariable ['A3W_purchasedVehicle',false])}"],
-	["<img image='client\icons\r3f_lock.paa'/> Lock Vehicle", "client\lockSystem\vehicle_lock.sqf", [], 1,false,false,"","[cursorTarget] call canVehicleLock && {!(cursorTarget getVariable ['A3W_missionVehicle',false]) && !(cursorTarget getVariable ['A3W_purchasedVehicle',false])}"],
-	["<img image='client\icons\r3f_unlock.paa'/> Unlock Vehicle", "client\lockSystem\vehicle_unlock.sqf", [], 1,false,false,"","[cursorTarget] call canVehicleUnlock"],
+	["<t color='#00FF00'><img image='client\icons\r3f_lock.paa'/> Lock Vehicle</t>", "client\lockSystem\vehicle_lock.sqf", [], 1,false,false,"","(cursorTarget isKindOf 'AllVehicles') && {[cursorTarget] call canVehicleLock && {(cursorTarget getVariable ['A3W_missionVehicle',false]) || (cursorTarget getVariable ['A3W_purchasedVehicle',false])}}"],
+	["<img image='client\icons\r3f_lock.paa'/> Lock Vehicle", "client\lockSystem\vehicle_lock.sqf", [], 1,false,false,"","(cursorTarget isKindOf 'AllVehicles') && {[cursorTarget] call canVehicleLock && {!(cursorTarget getVariable ['A3W_missionVehicle',false]) && !(cursorTarget getVariable ['A3W_purchasedVehicle',false])}}"],
+	["<img image='client\icons\r3f_unlock.paa'/> Unlock Vehicle", "client\lockSystem\vehicle_unlock.sqf", [], 1,false,false,"","(cursorTarget isKindOf 'AllVehicles') && {[cursorTarget] call canVehicleUnlock}"],
 	
-	["<t color='#FF66CC'>Give up!</t>",  "addons\Surrender\fn_surrender_request.sqf", [], 1,false,false,"","[cursorTarget] call canSuggestToSurrender"],	
-	["<t color='#47B247'>Surrender</t>",  "addons\Surrender\fn_surrender_confirm.sqf", [], 1,false,false,"","[] call wasSuggestedToSurrender"],	
-	["<t color='#FF0000'>Extort</t>",  "addons\Surrender\fn_surrender_actions.sqf", [cursorTarget,"extort"], 1,false,false,"","(cursorTarget getVariable ['sur_isSurrendering',false]) && {(player distance cursorTarget) < 5}"],	
-	["<t color='#FF0000'>Look in pockets</t>",  "addons\Surrender\fn_surrender_actions.sqf", [cursorTarget,"money"], 1,false,false,"","(cursorTarget getVariable ['sur_isSurrendering',false]) && {(player distance cursorTarget) < 5}"],	
-	["<t color='#FF0000'>Release</t>",  "addons\Surrender\fn_surrender_actions.sqf", [cursorTarget,"release"], 1,false,false,"","(cursorTarget getVariable ['sur_isSurrendering',false]) && {(player distance cursorTarget) < 5}"],	
+	["<t color='#FF66CC'>Give up!</t>",  "addons\Surrender\fn_surrender_request.sqf", [], 1,false,false,"","(isPlayer cursorTarget) && {[cursorTarget] call canSuggestToSurrender}"],	
+	["<t color='#47B247'>Surrender</t>",  "addons\Surrender\fn_surrender_confirm.sqf", [], 1,false,false,"","(isPlayer cursorTarget) && {[] call wasSuggestedToSurrender}"],	
+	["<t color='#FF0000'>Extort</t>",  "addons\Surrender\fn_surrender_actions.sqf", [cursorTarget,"extort"], 1,false,false,"","(isPlayer cursorTarget) && {(cursorTarget getVariable ['sur_isSurrendering',false]) && {(player distance cursorTarget) < 5}}"],	
+	["<t color='#FF0000'>Look in pockets</t>",  "addons\Surrender\fn_surrender_actions.sqf", [cursorTarget,"money"], 1,false,false,"","(isPlayer cursorTarget) && {(cursorTarget getVariable ['sur_isSurrendering',false]) && {(player distance cursorTarget) < 5}}"],	
+	["<t color='#FF0000'>Release</t>",  "addons\Surrender\fn_surrender_actions.sqf", [cursorTarget,"release"], 1,false,false,"","(isPlayer cursorTarget) && {(cursorTarget getVariable ['sur_isSurrendering',false]) && {(player distance cursorTarget) < 5}}"],	
 
 	["Holster Weapon", { player action ["SwitchWeapon", player, player, 100] }, [], -11, false, false, "", "vehicle player == player && currentWeapon player != ''"],
 	["Unholster Primary Weapon", { player action ["SwitchWeapon", player, player, 0] }, [], -11, false, false, "", "vehicle player == player && currentWeapon player == '' && primaryWeapon player != ''"],

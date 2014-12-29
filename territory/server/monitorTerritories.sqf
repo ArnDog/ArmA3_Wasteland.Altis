@@ -204,7 +204,7 @@ _onCaptureFinished =
 	_groupID = nil;
 	 //Custom init for each unit. Lock vehicle, gear and so on. Lock vehicle: "if (this isKindOf 'Vehicle') then {this lock 2}";
 	 
-	_customInit = "[[this], 'A3W_fnc_disableFF',true, true] call BIS_fnc_MP;";
+	_customInit = "[[this], 'A3W_fnc_disableFF',true, true] call BIS_fnc_MP; this setSpeaker 'NoVoice';";
 	
 	_territoryID = nil;
 	

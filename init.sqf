@@ -58,6 +58,9 @@ if (isServer) then
 	diag_log format ["############################# %1 #############################", missionName];
 	diag_log "WASTELAND SERVER - Initializing Server";
 	[] execVM "server\init.sqf";
+	
+	//[AiCacheDistance(players),TargetFPS(-1 for Auto),Debug,CarCacheDistance,AirCacheDistance,BoatCacheDistance]execvm "zbe_cache\main.sqf";
+	[1500,-1,true,200,1500,1500]execVM "addons\zbe_cache\main.sqf"
 };
 
 //init 3rd Party Scripts

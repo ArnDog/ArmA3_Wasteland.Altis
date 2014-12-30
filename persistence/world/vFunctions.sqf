@@ -426,6 +426,12 @@ v_setupVehicleSavedVariables = {
   if (isSIDE(_r3fSide)) then {
     _variables pushBack ["R3F_Side", str _r3fSide];
   };
+  
+  def(_lockState);
+  _lockState = _obj getVariable "vehicleLocked";
+  if (defined(_lockState)) then {
+    _variables pushBack ["vehicleLocked", _lockState];
+  };
 
   _variables pushBack ["A3W_objectTextures", (_obj getVariable ["A3W_objectTextures",[]])];
 

@@ -350,6 +350,14 @@ o_fillVariables = {
   if (!isNil "_r3fSide" && {typeName _r3fSide == typeName sideUnknown}) then {
     _variables pushBack ["R3F_Side", str _r3fSide];
   };
+  
+  def(_password);
+  if (_obj isKindOf "Building") then {
+	_password = _obj getVariable ["password",""];
+	if (!(isNil "_password")) then {
+		_variables pushBack ["password", _password];
+	};
+  };
 
   _variables pushBack ["objectLocked", _obj getVariable "objectLocked"];
 };

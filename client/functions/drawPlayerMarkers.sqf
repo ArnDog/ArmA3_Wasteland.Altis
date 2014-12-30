@@ -3,20 +3,27 @@
 // ******************************************************************************************
 //	@file Name: drawPlayerMarkers.sqf
 //	@file Author: AgentRev
+//	Now only players in group should display on the map
 
 if (!hasInterface) exitWith {};
 
 #define IS_FRIENDLY_PLAYER(UNIT) (isPlayer UNIT && {(group UNIT == group player || (!_isIndie && side group UNIT == playerSide))})
 #define DEFAULT_ICON_POS(UNIT) (UNIT modelToWorld (UNIT selectionPosition "spine3"))
+#define MISSION_AI_FAR_DISTANCE 75
+#define IS_IN_GROUP(UNIT) (isPlayer UNIT && {(group UNIT == group player)})
 
 if (isNil "showPlayerNames") then { showPlayerNames = false };
 
 drawPlayerMarkers_array = [];
+drawPlayerMarkers_arrayLines = [];
 
 if (!isNil "drawPlayerMarkers_thread") then { terminate drawPlayerMarkers_thread };
 drawPlayerMarkers_thread = [] spawn
 {
 	scriptName "drawPlayerMarkers";
+
+	_missionAiDrawLines = ["A3W_missionFarAiDrawLines"] call isConfigOn;
+
 	waitUntil
 	{
 		_newArray = [];
@@ -36,7 +43,7 @@ drawPlayerMarkers_thread = [] spawn
 			_uav = _x;
 			_uavOwner = (uavControl _uav) select 0;
 
-			if (IS_FRIENDLY_PLAYER(_uavOwner) || (isNull _uavOwner && side _uav == playerSide)) then
+			if (IS_IN_GROUP(_uavOwner)) then
 			{
 				_icon = getText (configFile >> "CfgVehicles" >> typeOf _uav >> "icon");
 				if (_icon == "") then { _icon = "iconMan" };
@@ -66,7 +73,7 @@ drawPlayerMarkers_thread = [] spawn
 		} forEach _allDeadMen;
 
 		{
-			if (IS_FRIENDLY_PLAYER(_x) && !(_x getVariable ["playerSpawning", false])) then
+			if (IS_IN_GROUP(_x) && !(_x getVariable ["playerSpawning", false])) then
 			{
 				_veh = vehicle _x;
 
@@ -97,8 +104,41 @@ drawPlayerMarkers_thread = [] spawn
 			_veh = vehicle player;
 			_newArray pushBack ["\A3\ui_f\Data\IGUI\Cfg\IslandMap\iconplayer_ca.paa", [1,0,0,1], getPosASLVisual _veh, 26, 26, getDir _veh]; // draw player circle
 		};
-
+		
 		drawPlayerMarkers_array = _newArray;
+
+		_newArrayLines = [];
+
+		if (_missionAiDrawLines) then
+		{
+			{
+				if (side _x == CIVILIAN) then
+				{
+					_markerPos = markerPos (_x getVariable ["A3W_missionMarkerName", ""]);
+
+					if !(_markerPos isEqualTo [0,0,0]) then
+					{
+						_vehs = [];
+
+						{
+							_veh = vehicle _x;
+
+							if !(_veh in _vehs) then
+							{
+								if (_veh distance _markerPos > MISSION_AI_FAR_DISTANCE) then
+								{
+									_newArrayLines pushBack [_markerPos, getPosASLVisual _veh, [1,0,0,1]];
+								};
+
+								_vehs pushBack _veh;
+							};
+						} forEach units _x;
+					};
+				};
+			} forEach allGroups;
+		};
+
+		drawPlayerMarkers_arrayLines = _newArrayLines;
 		false
 	};
 };
@@ -110,24 +150,25 @@ A3W_scriptThreads pushBack drawPlayerMarkers_thread;
 // UAV Terminal = findDisplay 160 displayCtrl 51
 
 disableSerialization;
-private ["_display", "_mapCtrl"];
+private ["_drawCode", "_display", "_mapCtrl"];
+
+_drawCode =
+{
+	_mapCtrl = _this select 0;
+	{ _mapCtrl drawIcon _x } forEach drawPlayerMarkers_array;
+	{ _mapCtrl drawLine _x } forEach drawPlayerMarkers_arrayLines;
+};
 
 // Main map
 waitUntil {_display = findDisplay 12; !isNull _display};
 _mapCtrl = _display displayCtrl 51;
 
 if (!isNil "drawPlayerMarkers_mapDraw") then { _mapCtrl ctrlRemoveEventHandler ["Draw", drawPlayerMarkers_mapDraw] };
-drawPlayerMarkers_mapDraw = _mapCtrl ctrlAddEventHandler ["Draw",
-{
-	{ (_this select 0) drawIcon _x } forEach drawPlayerMarkers_array;
-}];
+drawPlayerMarkers_mapDraw = _mapCtrl ctrlAddEventHandler ["Draw", _drawCode];
 
 // GPS
 waitUntil {_display = uiNamespace getVariable ["RscMiniMap", displayNull]; !isNull _display};
 _mapCtrl = _display displayCtrl 101;
 
 if (!isNil "drawPlayerMarkers_gpsDraw") then { _mapCtrl ctrlRemoveEventHandler ["Draw", drawPlayerMarkers_gpsDraw] };
-drawPlayerMarkers_gpsDraw = _mapCtrl ctrlAddEventHandler ["Draw",
-{
-	{ (_this select 0) drawIcon _x } forEach drawPlayerMarkers_array;
-}];
+drawPlayerMarkers_gpsDraw = _mapCtrl ctrlAddEventHandler ["Draw", _drawCode];

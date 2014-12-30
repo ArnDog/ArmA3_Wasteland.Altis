@@ -7,9 +7,12 @@
 //	@file Created: 31/08/2013 18:19
 
 if (!isServer) exitwith {};
-#include "moneyMissionDefines.sqf";
+#include "moneyMissionDefines.sqf"
+
 
 private ["_MoneyShipment", "_moneyAmount", "_convoys", "_vehChoices", "_moneyText", "_vehClasses", "_createVehicle", "_vehicles", "_veh2", "_leader", "_speedMode", "_waypoint", "_vehicleName", "_numWaypoints", "_cash"];
+
+_airCounter=0;
 
 _setupVars =
 {
@@ -25,7 +28,7 @@ _setupVars =
 		// Easy
 		[
 			"Small Money Shipment", // Marker text
-			25000, // Money
+			100000, // Money
 			[
 				[ // NATO convoy
 					["B_MRAP_01_hmg_F", "B_MRAP_01_gmg_F"], // Veh 1
@@ -44,7 +47,7 @@ _setupVars =
 		// Medium
 		[
 			"Medium Money Shipment", // Marker text
-			50000, // Money
+			200000, // Money
 			[
 				[ // NATO convoy
 					["B_MRAP_01_hmg_F", "B_MRAP_01_gmg_F"], // Veh 1
@@ -66,7 +69,7 @@ _setupVars =
 		// Hard
 		[
 			"Large Money Shipment", // Marker text
-			75000, // Money
+			370000, // Money
 			[
 				[ // NATO convoy
 					["B_APC_Wheeled_01_cannon_F", "B_APC_Tracked_01_rcws_F", "B_APC_Tracked_01_AA_F"], // Veh 1
@@ -88,25 +91,32 @@ _setupVars =
 		// Extreme
 		[
 			"Heavy Money Shipment", // Marker text
-			100000, // Money
+			500000, // Money
 			[
 				[ // NATO convoy
 					["B_APC_Wheeled_01_cannon_F", "B_APC_Tracked_01_rcws_F", "B_APC_Tracked_01_AA_F", "B_MBT_01_cannon_F", "B_MBT_01_TUSK_F"], // Veh 1
 					["B_APC_Tracked_01_AA_F", "B_MBT_01_cannon_F", "B_MBT_01_TUSK_F"], // Veh 2
+					["B_Heli_Attack_01_F"], //Heli 1
 					["B_APC_Wheeled_01_cannon_F", "B_APC_Tracked_01_rcws_F", "B_APC_Tracked_01_AA_F", "B_MBT_01_cannon_F", "B_MBT_01_TUSK_F"], // Veh 3
-					["B_APC_Wheeled_01_cannon_F", "B_APC_Tracked_01_rcws_F", "B_APC_Tracked_01_AA_F", "B_MBT_01_cannon_F", "B_MBT_01_TUSK_F"] // Veh 4
+					["B_APC_Wheeled_01_cannon_F", "B_APC_Tracked_01_rcws_F", "B_APC_Tracked_01_AA_F", "B_MBT_01_cannon_F", "B_MBT_01_TUSK_F"], // Veh 4
+					["B_Heli_Attack_01_F"] //Heli 2
+					
 				],
 				[ // CSAT convoy
 					["O_APC_Wheeled_02_rcws_F", "O_APC_Tracked_02_cannon_F", "O_APC_Tracked_02_AA_F", "O_MBT_02_cannon_F"], // Veh 1
 					["O_APC_Tracked_02_AA_F", "O_MBT_02_cannon_F"], // Veh 2
+					["B_Heli_Attack_01_F"], //Heli 1
 					["O_APC_Wheeled_02_rcws_F", "O_APC_Tracked_02_cannon_F", "O_APC_Tracked_02_AA_F", "O_MBT_02_cannon_F"], // Veh 3
-					["O_APC_Wheeled_02_rcws_F", "O_APC_Tracked_02_cannon_F", "O_APC_Tracked_02_AA_F", "O_MBT_02_cannon_F"] // Veh 4
+					["O_APC_Wheeled_02_rcws_F", "O_APC_Tracked_02_cannon_F", "O_APC_Tracked_02_AA_F", "O_MBT_02_cannon_F"], // Veh 4
+					["B_Heli_Attack_01_F"] //Heli 2
 				],
 				[ // AAF convoy
 					["I_APC_Wheeled_03_cannon_F", "I_APC_tracked_03_cannon_F", "I_MBT_03_cannon_F"], // Veh 1
 					["I_APC_tracked_03_cannon_F", "I_MBT_03_cannon_F"], // Veh 2
+					["B_Heli_Attack_01_F"], //Heli 1
 					["I_APC_Wheeled_03_cannon_F", "I_APC_tracked_03_cannon_F", "I_MBT_03_cannon_F"], // Veh 3
-					["I_APC_Wheeled_03_cannon_F", "I_APC_tracked_03_cannon_F", "I_MBT_03_cannon_F"] // Veh 4
+					["I_APC_Wheeled_03_cannon_F", "I_APC_tracked_03_cannon_F", "I_MBT_03_cannon_F"], // Veh 4
+					["B_Heli_Attack_01_F"] //Heli 2
 				]
 			]
 		]
@@ -137,7 +147,13 @@ _setupObjects =
 		_position = _this select 1;
 		_direction = _this select 2;
 
-		_vehicle = createVehicle [_type, _position, [], 0, "None"];
+		if (_type isKindOf "Air") then {
+			_vehicle = createVehicle [_type, [_position select 0, _position select 1, 250+(200*_airCounter)], [], 0, "FLY"];
+			_airCounter=_airCounter+1;
+		}else{
+			_vehicle = createVehicle [_type, _position, [], 0, "None"];
+		};
+			
 		_vehicle setVariable ["R3F_LOG_disabled", true, true];
 		[_vehicle] call vehicleSetup;
 
@@ -220,6 +236,26 @@ _failedExec = nil;
 
 // _vehicles are automatically deleted or unlocked in missionProcessor depending on the outcome
 
+
+_drop_item = {
+  private["_item", "_pos"];
+  _item = _this select 0;
+  _pos = _this select 1;
+
+  if (isNil "_item" || {typeName _item != typeName [] || {count(_item) != 2}}) exitWith {};
+  if (isNil "_pos" || {typeName _pos != typeName [] || {count(_pos) != 3}}) exitWith {};
+
+  private["_id", "_class"];
+  _id = _item select 0;
+  _class = _item select 1;
+
+  private["_obj"];
+  _obj = createVehicle [_class, _pos, [], 5, "None"];
+	_obj setPos ([_pos, [[2 + random 3,0,0], random 360] call BIS_fnc_rotateVector2D] call BIS_fnc_vectorAdd);
+	_obj setVariable ["mf_item_id", _id, true];
+};
+
+
 _successExec =
 {
 	// Mission completed
@@ -233,7 +269,18 @@ _successExec =
 		_cash setVariable ["owner", "world", true];
 	};
 
-	_successHintMessage = "The convoy has been stopped, the money and vehicles are now yours to take.";
+	for "_i" from 1 to 8 do {
+	  private["_item"];
+	  _item = [
+	          ["lsd", "Land_WaterPurificationTablets_F"],
+	          ["marijuana", "Land_VitaminBottle_F"],
+	          ["cocaine","Land_PowderedMilk_F"],
+	          ["heroin", "Land_PainKillers_F"]
+	        ] call BIS_fnc_selectRandom;
+	  [_item, _lastPos] call _drop_item;
+	};
+
+	_successHintMessage = "The convoy has been stopped, the money, vehicles, and drugs are now yours to take.";
 };
 
 _this call moneyMissionProcessor;

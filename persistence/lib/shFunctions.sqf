@@ -47,7 +47,7 @@ sh_restoreVariables = {
       switch (_name) do {
         case "side": { _value = _value call sh_strToSide};
         case "R3F_Side": { _value = _value call sh_strToSide };
-		case "vehicleLocked" : {_obj lock _value};
+        case "vehicleLocked" : {_obj lock _value};
         case "ownerName": {
           switch (typeName _value) do {
             case "ARRAY": { _value = toString _value };

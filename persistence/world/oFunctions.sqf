@@ -58,6 +58,7 @@ o_isSaveable = {
     (cfg_staticWeaponSaving_on)
   };
 
+  //diag_log format ["Class: %1, isMine: %2, isSaveableMine: %3", typeOf _obj, [_obj] call sh_isMine, [_obj] call sh_isSaveableMine];
   if (([_obj] call sh_isMine)&&([_obj] call sh_isSaveableMine)) exitWith {
     (cfg_MineSaving_on)
   };
@@ -454,10 +455,19 @@ o_fillVariables = {
   
   def(_password);
   if (_obj isKindOf "Building") then {
-	_password = _obj getVariable ["password",""];
-	if (!(isNil "_password")) then {
-		_variables pushBack ["password", _password];
-	};
+    _doorsAmount = [_obj] call fn_getDoorsAmount;
+    
+    for "_i" from 1 to _doorsAmount do {
+      _doorState = _obj getVariable [format ["bis_disabled_Door_%1",_i],0];
+      if ((_doorState==1)) then {
+        _variables pushBack [format ["bis_disabled_Door_%1",_i],_doorState];
+      };
+    };
+    
+    _password = _obj getVariable ["password",""];
+    if (!(isNil "_password")) then {
+      _variables pushBack ["password", _password];
+    };
   };
 
   _variables pushBack ["objectLocked", _obj getVariable "objectLocked"];
@@ -665,8 +675,22 @@ o_saveAllObjects = {
   init(_start_time, diag_tickTime);
   init(_last_save, diag_tickTime);
 
+  init(_allowedMines,[]);
+  
+  if (isNil "unsaveableArray") then {
+    unsaveableArray=[];
+  };
+  
+  {
+    if (!(_x in unsaveableArray)) then {
+      _allowedMines pushBack _x;
+    };
+  } forEach allMines;
+  
+  //diag_log format ["_allowedMines: %1", _allowedMines];
+  
   private["_all_objects"];
-  _all_objects = tracked_objects_list + allMines;
+  _all_objects = tracked_objects_list + _allowedMines;
 
   {
     if (!isNil{[_request, _x] call o_addSaveObject}) then {

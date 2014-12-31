@@ -12,6 +12,9 @@
 	["<t color='#00FF00'><img image='client\icons\r3f_lock.paa'/> Lock Vehicle</t>", "client\lockSystem\vehicle_lock.sqf", [], 1,false,false,"","(cursorTarget isKindOf 'AllVehicles') && {[cursorTarget] call canVehicleLock && {(cursorTarget getVariable ['A3W_missionVehicle',false]) || (cursorTarget getVariable ['A3W_purchasedVehicle',false])}}"],
 	["<img image='client\icons\r3f_lock.paa'/> Lock Vehicle", "client\lockSystem\vehicle_lock.sqf", [], 1,false,false,"","(cursorTarget isKindOf 'AllVehicles') && {[cursorTarget] call canVehicleLock && {!(cursorTarget getVariable ['A3W_missionVehicle',false]) && !(cursorTarget getVariable ['A3W_purchasedVehicle',false])}}"],
 	["<img image='client\icons\r3f_unlock.paa'/> Unlock Vehicle", "client\lockSystem\vehicle_unlock.sqf", [], 1,false,false,"","(cursorTarget isKindOf 'AllVehicles') && {[cursorTarget] call canVehicleUnlock}"],
+  
+	["<img image='client\icons\r3f_lock.paa'/> Change Password","addons\buildingLocker\password_change.sqf",[],1,false,false,"","(cursorTarget isKindOf 'Building') && {((cursorTarget getVariable ['ownerUID','']) == (getPlayerUID player)) && {[cursorTarget] call canChangePassword}}"],
+	["<img image='client\icons\r3f_lock.paa'/> Enter Password","addons\buildingLocker\password_enter.sqf",[],1,false,false,"","(cursorTarget isKindOf 'Building') && {[cursorTarget] call canEnterPassword}"],
 	
 	["<t color='#FF66CC'>Give up!</t>",  "addons\Surrender\fn_surrender_request.sqf", [], 1,false,false,"","(isPlayer cursorTarget) && {[cursorTarget] call canSuggestToSurrender}"],	
 	["<t color='#47B247'>Surrender</t>",  "addons\Surrender\fn_surrender_confirm.sqf", [], 1,false,false,"","(isPlayer cursorTarget) && {[] call wasSuggestedToSurrender}"],	

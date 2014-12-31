@@ -14,11 +14,11 @@
 _usePassword = true;
 
 if (_usePassword) then {
-	player addAction ["<img image='client\icons\r3f_lock.paa'/>Change Password","addons\buildingLocker\password_change.sqf",[],0,false,false,"","(cursorTarget isKindOf 'Building') && {((cursorTarget getVariable ['ownerUID','']) == (getPlayerUID player)) && {[cursorTarget] call canChangePassword}}"];
-	player addAction ["<img image='client\icons\r3f_lock.paa'/>Enter Password","addons\buildingLocker\password_enter.sqf",[],0,false,false,"","(cursorTarget isKindOf 'Building') && {[cursorTarget] call canEnterPassword}"];
+	//player addAction ["<img image='client\icons\r3f_lock.paa'/>Change Password","addons\buildingLocker\password_change.sqf",[],0,false,false,"","(cursorTarget isKindOf 'Building') && {((cursorTarget getVariable ['ownerUID','']) == (getPlayerUID player)) && {[cursorTarget] call canChangePassword}}"];
+	//player addAction ["<img image='client\icons\r3f_lock.paa'/>Enter Password","addons\buildingLocker\password_enter.sqf",[],0,false,false,"","(cursorTarget isKindOf 'Building') && {[cursorTarget] call canEnterPassword}"];
 }else{
-	player addAction ["<img image='client\icons\r3f_lock.paa'/> Lock Building","addons\buildingLocker\building_lock.sqf",[],0,false,false,"","((cursorTarget getVariable ['ownerUID','']) == (getPlayerUID player)) && {[cursorTarget] call canBuildingLock}"];
-	player addAction ["<img image='client\icons\r3f_unlock.paa'/> Unlock Building","addons\buildingLocker\building_unlock.sqf",[],0,false,false,"","((cursorTarget getVariable ['ownerUID','']) == (getPlayerUID player)) && {[cursorTarget] call canBuildingUnlock}"];
+	//player addAction ["<img image='client\icons\r3f_lock.paa'/> Lock Building","addons\buildingLocker\building_lock.sqf",[],0,false,false,"","((cursorTarget getVariable ['ownerUID','']) == (getPlayerUID player)) && {[cursorTarget] call canBuildingLock}"];
+	//player addAction ["<img image='client\icons\r3f_unlock.paa'/> Unlock Building","addons\buildingLocker\building_unlock.sqf",[],0,false,false,"","((cursorTarget getVariable ['ownerUID','']) == (getPlayerUID player)) && {[cursorTarget] call canBuildingUnlock}"];
 };
 
 _path="addons\buildingLocker";

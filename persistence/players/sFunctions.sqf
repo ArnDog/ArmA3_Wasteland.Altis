@@ -360,8 +360,9 @@ p_addPlayerSave = {
     _request pushBack ["PlayerScore",_scoreInfo];
   };
 
+  diag_log format["Disconnected %1(%2):  unconscious = %3, respawning = %4, alive = %5", _name,_uid,_FAR_isUnconscious, _respawnDialogActive, _alive];
   if (_reset_save) exitWith {
-     diag_log format["Resetting stats for %1(%2), unconscious = %3, respawning = %4, alive = %5",_name,_uid,_FAR_isUnconscious, _respawnDialogActive, _alive];
+     diag_log format["Resetting %1(%2) stats", _name, _uid];
      _request pushBack ["PlayerSave",nil];
      _request pushBack ["PlayerSave_Stratis",nil];
      _request pushBack ["PlayerSave_Altis",nil];
@@ -518,10 +519,10 @@ p_addPlayerSave = {
 };
 
 p_disconnectSave = {
-  //diag_log format["%1 call p_disconnectSave", _this];
+  diag_log format["%1 call p_disconnectSave", _this];
   ARGVX3(0,_player,objNull);
-  ARGVX3(2,_uid,"");
-  ARGVX3(3,_name,"");
+  ARGVX3(1,_uid,"");
+  ARGVX3(2,_name,"");
 
 
   init(_scope,_uid call PDB_playerFileName);
@@ -565,6 +566,65 @@ p_disconnectSave = {
   } forEach _vitals;
 };};
 
+fn_getPlayerFlag = {
+  ARGVX3(0,_uid,"");
+
+  def(_scope);
+  _scope = "Hackers2" call PDB_hackerLogFileName;
+
+  def(_key);
+  _key = format["%1.records",_uid];
+
+
+  def(_records);
+  _records = [_scope, _key, nil] call stats_get;
+
+  if (!isARRAY(_records)) exitWith {};
+
+  private["_last"];
+  _last = _records select (count(_records) -1);
+
+  if (!isCODE(_last)) exitWith {};
+
+  (call _last)
+};
+
+fn_kickPlayerIfFlagged = {
+  ARGVX3(0,_UID,"");
+  ARGVX3(1,_name,"");
+
+  def(_flag);
+  _flag = [_UID] call fn_getPlayerFlag;
+  if (!isARRAY(_flag) || {count(_flag) == 0}) exitWith {};
+
+  // Super mega awesome dodgy player kick method
+  "Logic" createUnit [[1,1,1], createGroup sideLogic,
+  ("
+    this spawn {
+      if (isServer) then {
+        _grp = group _this;
+        deleteVehicle _this;
+        deleteGroup _grp;
+      }
+      else {
+        waitUntil {!isNull player};
+        if (getPlayerUID player == '" + _UID + "') then {
+          preprocessFile 'client\functions\quit.sqf';
+        };
+      };
+    }
+  ")];
+
+  //_oldName = _flag select 0; // always empty for extDB
+  def(_hackType);
+  def(_hackValue);
+
+  _hackType = [_flag, "hackType", "unknown"] call fn_getFromPairs;
+  _hackValue = [_flag, "hackValue", "unknown"] call fn_getFromPairs;
+
+  diag_log format ["ANTI-HACK: %1 (%2) was kicked due to having been flagged for [%3, %4] in the past", _name, _UID, _hackType, _hackValue];
+
+};
 
 active_players_list = [];
 

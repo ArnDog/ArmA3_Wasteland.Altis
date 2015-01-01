@@ -532,9 +532,16 @@ p_disconnectSave = {
     diag_log format["WARNING: No stats saved for %1(%2) on disconnect", _name, _uid];
   };
 
+   diag_log format["/////////////////////////////////////////"];
+   diag_log format["Saving stats for %1 ", _name];
+   diag_log ("_request = " + str(_request));
+   diag_log format["/////////////////////////////////////////"];
+
+  
   _request call stats_set;
   [_scope] call stats_flush;
 };
+
 
 
 //event listener for server to track when the players inventory changes

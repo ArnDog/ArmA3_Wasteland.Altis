@@ -2054,7 +2054,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=48;
+		items=38;
 		class Item0
 		{
 			position[]={5892.3325,225.05762,20124.521};
@@ -2317,7 +2317,7 @@ class Mission
 			init="[this, true] call A3W_fnc_setupMissionObject";
 			description="DO NOT MODIFY IN EDITOR";
 		};
-		class Item34
+		class Item24
 		{
 			position[]={11866.427,16.354881,9441.4248};
 			azimut=30.279499;
@@ -2332,7 +2332,7 @@ class Mission
 			init="this call A3W_fnc_setupResupplyTruck";
 			description="Service";
 		};
-		class Item35
+		class Item25
 		{
 			position[]={4952.3135,16.147003,14393.723};
 			azimut=96.126503;
@@ -2347,7 +2347,7 @@ class Mission
 			init="this call A3W_fnc_setupResupplyTruck";
 			description="Service";
 		};
-		class Item36
+		class Item26
 		{
 			position[]={14661.954,17.912905,16146.968};
 			azimut=30.279499;
@@ -2362,7 +2362,7 @@ class Mission
 			init="this call A3W_fnc_setupResupplyTruck";
 			description="Service";
 		};
-		class Item37
+		class Item27
 		{
 			position[]={23052.475,3.1900001,18980.561};
 			azimut=30.279499;
@@ -2377,7 +2377,7 @@ class Mission
 			init="this call A3W_fnc_setupResupplyTruck";
 			description="Service";
 		};
-		class Item38
+		class Item28
 		{
 			position[]={26844.871,21.499193,24680.629};
 			azimut=69.169502;
@@ -2392,7 +2392,7 @@ class Mission
 			init="this call A3W_fnc_setupResupplyTruck";
 			description="Service";
 		};
-		class Item39
+		class Item29
 		{
 			position[]={21018.467,24.164013,7235.9766};
 			azimut=-47.026901;
@@ -2407,7 +2407,7 @@ class Mission
 			init="this call A3W_fnc_setupResupplyTruck";
 			description="Service";
 		};
-		class Item40
+		class Item30
 		{
 			position[]={20916.25,27.757748,6905.2417};
 			azimut=-47.8661;
@@ -2422,7 +2422,7 @@ class Mission
 			init="this call A3W_fnc_setupSellTruck";
 			description="Sell Vehicle";
 		};
-		class Item40
+		class Item31
 		{
 			position[]={16909.143,11.681079,13114.839};
 			azimut=-47.8661;
@@ -2437,7 +2437,7 @@ class Mission
 			init="this call A3W_fnc_setupSellTruck";
 			description="Sell Vehicle";
 		};
-		class Item42
+		class Item32
 		{
 			position[]={22849.334,6.5564084,17190.305};
 			azimut=-47.8661;
@@ -2452,7 +2452,7 @@ class Mission
 			init="this call A3W_fnc_setupSellTruck";
 			description="Sell Vehicle";
 		};
-		class Item43
+		class Item33
 		{
 			position[]={25756.232,29.208359,21718.395};
 			azimut=-47.8661;
@@ -2467,7 +2467,7 @@ class Mission
 			init="this call A3W_fnc_setupSellTruck";
 			description="Sell Vehicle";
 		};
-		class Item44
+		class Item34
 		{
 			position[]={15362.866,18.057646,16812.561};
 			azimut=-47.8661;
@@ -2482,7 +2482,7 @@ class Mission
 			init="this call A3W_fnc_setupSellTruck";
 			description="Sell Vehicle";
 		};
-		class Item45
+		class Item35
 		{
 			position[]={9520.3477,127.71786,15131.872};
 			azimut=-47.8661;
@@ -2497,7 +2497,7 @@ class Mission
 			init="this call A3W_fnc_setupSellTruck";
 			description="Sell Vehicle";
 		};
-		class Item46
+		class Item36
 		{
 			position[]={3727.124,27.162212,12208.576};
 			azimut=-47.8661;
@@ -2512,7 +2512,7 @@ class Mission
 			init="this call A3W_fnc_setupSellTruck";
 			description="Sell Vehicle";
 		};
-		class Item47
+		class Item37
 		{
 			position[]={5164.3037,240.02509,21031.781};
 			azimut=-47.8661;

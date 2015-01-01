@@ -3945,7 +3945,7 @@ class Mission
 			type="Empty";
 			colorName="ColorYellow";
 		};
-		class Item194
+		class Item184
 		{
 			position[]={20915.318,27.789042,6905.6934};
 			name="Sell_Truck_1";

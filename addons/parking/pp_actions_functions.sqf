@@ -61,7 +61,7 @@ pp_create_terminal = {
   _terminal allowDamage false;
   //_terminal enableSimulation false;
   _terminal setVariable ["is_parking", true, true];
-  _terminal setVariable ["R3F_LOG_disabled", true]; //don't allow players to move the table
+  _terminal setVariable ["R3F_LOG_disabled", true, true]; //don't allow players to move the table
   _terminal attachTo [_terminal, [0,0,0]];
   detach _terminal;
 
@@ -70,7 +70,7 @@ pp_create_terminal = {
   _laptop setPos getPos _terminal;
   _laptop attachTo [_terminal, [0,-0.1,0.55]];
   _laptop setVariable ["is_parking", true, true];
-  _laptop setVariable ["R3F_LOG_disabled", true]; //don't allow players to move the laptop
+  _laptop setVariable ["R3F_LOG_disabled", true, true]; //don't allow players to move the laptop
 
   
   pp_terminals_list pushBack _terminal;

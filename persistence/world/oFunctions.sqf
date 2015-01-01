@@ -464,7 +464,7 @@ o_fillVariables = {
       };
     };
     
-    _password = _obj getVariable ["password",""];
+    _password = _obj getVariable "password";
     if (!(isNil "_password")) then {
       _variables pushBack ["password", _password];
     };

@@ -47,6 +47,10 @@
 	["<t color='#FF00FF'>Open magic parachute</t>", fn_openParachute, [], 20, true, true, "", "vehicle player == player && (getPos player) select 2 > 2.5"]
 ];
 
+if (["A3W_purchasedVehicleSaving"] call isConfigOn || {["A3W_missionVehicleSaving"] call isConfigOn}) then
+{
+	[player, ["<img image='client\icons\save.paa'/> Force Save Vehicle", { pvar_manualVehicleSave = netId cursorTarget; publicVariableServer "pvar_manualVehicleSave" }, [], -9.5, false, true, "", "call canForceSaveVehicle"]] call fn_addManagedAction;
+};
 
 // Hehehe...
 if !(288520 in getDLCs 1) then

@@ -232,6 +232,11 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 						_object setRepairCargo 25;
 					};
 				};
+
+				if (_object getVariable ["A3W_purchasedVehicle", false] && !isNil "fn_manualVehicleSave") then
+				{
+					_object call fn_manualVehicleSave;
+				};
 			};
 		};
 	};

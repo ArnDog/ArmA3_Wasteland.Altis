@@ -34,7 +34,7 @@ _backpack = [_player, "backpack"] call getDefaultClothing;
 
 } forEach customGearArray;
 
-if (_uniform != "") then { _player addUniform _uniform };
+if (_uniform != "") then { _player forceAddUniform _uniform };
 if (_vest != "") then { _player addVest _vest };
 if (_headgear != "") then { _player addHeadgear _headgear };
 if (_goggles != "") then { _player addGoggles _goggles };

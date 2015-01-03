@@ -567,16 +567,34 @@ o_addSaveObject = {
   def(_dir);
   def(_damage);
   def(_allowDamage);
-  def(_totalHours);
 
-  _class = [_obj] call o_getVehClass;
+  _class = typeOf _obj;
    _netId = netId _obj;
   _pos = ASLtoATL getPosWorld _obj;
   _dir = [vectorDir _obj, vectorUp _obj];
   _damage = damage _obj;
   _allowDamage = if (_obj getVariable ["allowDamage", false]) then { 1 } else { 0 };
-  _totalHours = [_obj] call o_getHoursAlive;
-
+ 
+ 
+  def(_spawnTime);
+  def(_hoursAlive);
+  _spawnTime = _obj getVariable "baseSaving_spawningTime";
+  _hoursAlive = _obj getVariable "baseSaving_hoursAlive";
+  
+  if (isNil "_spawnTime") then {
+    _spawnTime = diag_tickTime;
+    _obj setVariable ["baseSaving_spawningTime", _spawnTime, true];
+  };
+  
+  if (isNil "_hoursAlive") then {
+    _hoursAlive = 0;
+    _obj setVariable ["baseSaving_hoursAlive", _hoursAlive, true];  
+  };
+  
+  def(_totalHours);
+  _totalHours = _hoursAlive + (diag_tickTime - _spawnTime) / 3600;
+ 
+  
   init(_variables,[]);
   [_obj,_variables] call o_fillVariables;
  

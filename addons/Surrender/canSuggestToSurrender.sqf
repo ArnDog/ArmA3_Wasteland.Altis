@@ -13,7 +13,7 @@ switch (true) do {
 	case (!isPlayer _target): {}; // Not a player
 	case (!alive _target): {}; // Target is dead
 	case (_target getVariable ["sur_isSurrendering",false]): {}; // Player is surrendering
-	case (side player == side _target): {}; // Is in the same team
+	case ((side player == side _target) && ((side player in [BLUFOR,OPFOR]))): {}; // Is in the same team and it's not INDI
 	case (side _target in [CIVILIAN]): {}; //Is not in CIV
 	case (player distance _target > 350): {}; // It more then 350m
 	case (_target getVariable ["sur_isSurrendering",false]): {}; // Target is surrendering

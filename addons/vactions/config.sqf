@@ -14,7 +14,7 @@ cfg_va_unflip_wait_distance = 10;
 cfg_va_pull_player_action_on = true;
 
 //display lock/unlock actions 
-cfg_va_lock_action_on = true;
+cfg_va_lock_action_on = false;
 
 //Only the player with UID that matches "ownerUID" variable can lock/unlock the vehicle
 cfg_va_lock_owner_only = true;

@@ -13,7 +13,7 @@ switch (_action) do {
 	case ("release"): {
 		_target setVariable ["sur_isSurrendering",false,true];
 		_target setVariable ["sur_gotSuggestion",false,true];
-		_target setVariable ["sur_suggestorName",nil,true];
+		_target setVariable ["sur_suggestorObj",nil,true];
 		_target setVariable ["sur_suggestorTimeout",0,true];	
 		[_target, ""] call switchMoveGlobal;
 	};

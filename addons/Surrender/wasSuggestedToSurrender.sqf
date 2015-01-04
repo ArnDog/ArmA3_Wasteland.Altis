@@ -7,7 +7,7 @@
 //Surrender suggest longs for...
 
 _result=false;
-_name = player getVariable ["sur_suggestorName",""];
+_suggestor = player getVariable ["sur_suggestorObj",objNull];
 _timeout = player getVariable ["sur_suggestorTimeout",0];
 
 switch (true) do {
@@ -26,11 +26,11 @@ if (_result) then {
 		waitUntil {sleep 0.5; serverTime>_timeout};
 		player setVariable ["sur_isSurrendering",false,true];
 		player setVariable ["sur_gotSuggestion",false,true];
-		player setVariable ["sur_suggestorName",nil,true];
+		player setVariable ["sur_suggestorObj",nil,true];
 		player setVariable ["sur_suggestorTimeout",0,true];
-		player groupChat format["You ignored %1's surrender request.",_name];
+		player groupChat format["You ignored %1's surrender request.",name _suggestor];
 	}else{
-		player groupChat format["You have been suggested to surrender by %1. You have %2 seconds to decide.", _name,ceil(_timeout-serverTime)];
+		player groupChat format["You have been suggested to surrender by %1. You have %2 seconds to decide.",name _suggestor,ceil(_timeout-serverTime)];
 	};
 };
 (_result);

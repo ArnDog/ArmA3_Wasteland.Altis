@@ -87,17 +87,31 @@ switch (true) do
 	};
 	
 	// Edited by Revvy
-    // End Key (Near arrow keys) 
-    case (_key == 207):
-    {
-        if (soundVolume != 0.1) then {
-            1 fadeSound 0.1;
-            hint "Earplugs Worn";
-        } else {
-            1 fadeSound 1;
-            hint "Earplugs Removed";
-        };
+  // End Key (Near arrow keys) 
+  case (_key == 207):
+  {
+      if (soundVolume != 0.1) then {
+          1 fadeSound 0.1;
+          hint "Earplugs Worn";
+      } else {
+          1 fadeSound 1;
+          hint "Earplugs Removed";
+      };
+      
+      _handled = true;
+  };
+  
+  //Lock/Unlock by hotkey
+  //Ctrl + F
+  case (_ctrl && {(_key == 33)}) : 
+  {
+    if ((cursorTarget isKindOf 'AllVehicles') && {[cursorTarget] call canVehicleLock}) then {
+      [] execVM "client\lockSystem\vehicle_lock.sqf";
     };
+    if ((cursorTarget isKindOf 'AllVehicles') && {[cursorTarget] call canVehicleUnlock}) then {
+      [] execVM "client\lockSystem\vehicle_unlock.sqf";
+    };
+  };
 };
 
 _handled

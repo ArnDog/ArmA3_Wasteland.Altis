@@ -33,7 +33,7 @@ if ({ _target isKindOf _x } count ['Air','Tank','Motorcycle','Car','Ship'] > 0) 
 	&& (alive _target)
   && ((vehicle player) == player)
 	&& (locked _target==2)
-	&& ((player distance _target) < 7)
+	&& ((player distance _target) < 10)
 	&& (((_side == playerSide) && (_side in [EAST,WEST])) || (_owner == getPlayerUID player));
 }else{
 	false

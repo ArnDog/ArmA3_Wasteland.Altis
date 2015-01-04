@@ -31,6 +31,7 @@ if (isPlayer _killer) then
 	_killerSide = side group _killer;
 	_indyIndyKill = ((_victimSide == _killerSide) && !(_victimSide in [BLUFOR,OPFOR]) && (group _unit != group _killer));
 	_enemyKill = (_killerSide getFriend _victimSide < 0.6 || _indyIndyKill);
+  _guardKill = (_unit getVariable ["A3W_fnc_disableFF",false]);
 
 	if (isPlayer _unit) then
 	{
@@ -40,7 +41,7 @@ if (isPlayer _killer) then
 	else
 	{
 		_scoreColumn = "aiKills";
-		_scoreValue = if (_enemyKill || _victimSide == CIVILIAN) then { 1 } else { 0 };
+		_scoreValue = if (_enemyKill || _guardKill || _victimSide == CIVILIAN) then { 1 } else { 0 };
 	};
 
 	[_killer, _scoreColumn, _scoreValue] call fn_addScore;

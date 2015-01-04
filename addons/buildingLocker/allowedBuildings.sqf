@@ -22,6 +22,7 @@ _allowedList = [
 	"Land_i_House_Small_02_V1_F",
 	"Land_i_House_Small_02_V3_F",
 	"Land_i_Shed_Ind_F",
+  "Land_Dome_Big_F",
 	"Land_Dome_Small_F",
 	"Land_MilOffices_V1_F",
 	"Land_CarService_F",

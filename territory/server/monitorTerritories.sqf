@@ -299,7 +299,7 @@ _onCaptureFinished =
 		};
 	}else{
 		[_captureName,_radius,_territoryID] spawn {
-			sleep 5;
+			sleep 60;
 			if (isNil "unsaveableArray") then {
 				unsaveableArray=[];
 			};

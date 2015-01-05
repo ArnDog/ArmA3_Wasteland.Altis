@@ -7,7 +7,6 @@
 //	@file Description: Defines an allowed buildings list.
 
 _allowedList = [
-  "Land_BarGate_F",
   "Land_City_Gate_F",
   "Land_Net_Fence_Gate_F",
   "Land_Stone_Gate_F",

@@ -127,7 +127,7 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 			};
 
 			_objectID = netId _object;
-			_object setVariable ["A3W_purchasedStoreObject", true];
+			_object setVariable ["A3W_purchasedStoreObject", true,true];
 			_object setVariable ["ownerUID", getPlayerUID _player, true];
 
 			[_object] call v_trackVehicle;

@@ -48,6 +48,6 @@ if (!isDedicated && _allow) then
 };
 
 
-if (text != "") then {
+if (_text != "") then {
   [_text, 5] call mf_notify_client;
 };

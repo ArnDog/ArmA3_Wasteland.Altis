@@ -47,6 +47,6 @@ if (!isDedicated) then
 	sleep 0.5;
 };
 
-if (text != "") then {
+if (_text != "") then {
   [_text, 5] call mf_notify_client;
 };

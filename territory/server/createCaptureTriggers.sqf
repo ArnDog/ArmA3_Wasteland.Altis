@@ -35,7 +35,7 @@ if (!isServer) exitWith {};
       _infantryRandom = 0;
       _vehiclesAlways = 1;
       _vehiclesRandom = 1;
-      _aiSkills = "default"; //Default or an array
+      _aiSkills = 0.50; //Default or an array
       _groupID = nil;
       
       _customInit = "[[this], 'A3W_fnc_disableFF',true, true] call BIS_fnc_MP; this setSpeaker 'NoVoice'; this addEventHandler ['Killed', server_playerDied]; this setVariable ['isGuard',true,true];";

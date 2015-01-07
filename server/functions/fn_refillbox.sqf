@@ -69,6 +69,13 @@ switch (_boxType) do
 			["itm", "optic_DMS", RANDOM_BETWEEN(1,2)]
 		];
 	};
+  
+  //Add thermal scope
+  {
+    if ((random(1))<0.15) then {
+      _boxItems pushBack ["itm", _x, 1];
+    };
+  } forEach ["optic_tws","optic_tws_mg","optic_Nightstalker"];
 };
 
 [_box, _boxItems] call processItems;

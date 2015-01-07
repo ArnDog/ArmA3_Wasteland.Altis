@@ -98,21 +98,21 @@ _INDchopper = "I_Heli_Transport_02_F";
 //Side related group creation:
 switch(_side)do{
 	case 1:{
-		//_center = createCenter west;
+		_center = createCenter west;
 		_grp = createGroup west;
 		if(isNil("_grp2"))then{_grp2 = createGroup west;}else{_grp2 = _grp2;};
 		_men = _BLUmen;
 		_heliType = _BLUchopper;
 	};
 	case 2:{
-		//_center = createCenter east;
+		_center = createCenter east;
 		_grp = createGroup east;
 		if(isNil("_grp2"))then{_grp2 = createGroup east;}else{_grp2 = _grp2;};
 		_men = _OPFmen;
 		_heliType = _OPFchopper;
 	};
 	case 3:{
-		//_center = createCenter resistance;
+		_center = createCenter resistance;
 		_grp = createGroup resistance;
 		if(isNil("_grp2"))then{_grp2 = createGroup resistance;}else{_grp2 = _grp2;};
 		_men = _INDmen;

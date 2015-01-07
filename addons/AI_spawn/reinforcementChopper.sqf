@@ -132,21 +132,21 @@ _chopperTypes = [];
 //Side related group creation:
 switch(_side)do{
 	case 1:{
-		//_hq = createCenter west;
+		_hq = createCenter west;
 		_grp1 = createGroup west;
 		if(isNil("_grp2"))then{_grp2 = createGroup west;}else{_grp2 = _grp2;};
 		_men = (_BLUarrays call BIS_fnc_selectRandom);
 		_chopperTypes = _BLUchoppers;
 	};
 	case 2:{
-		//_hq = createCenter east;
+		_hq = createCenter east;
 		_grp1 = createGroup east;
 		if(isNil("_grp2"))then{_grp2 = createGroup east;}else{_grp2 = _grp2;};
 		_men = (_OPFarrays call BIS_fnc_selectRandom);
 		_chopperTypes = _OPFchoppers;
 	};
 	case 3:{
-		//_hq = createCenter resistance;
+		_hq = createCenter resistance;
 		_grp1 = createGroup resistance;
 		if(isNil("_grp2"))then{_grp2 = createGroup resistance;}else{_grp2 = _grp2;};
 		_men = _INDmen;

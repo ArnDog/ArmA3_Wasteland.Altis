@@ -109,25 +109,25 @@ _yellowCarArray = ["C_Offroad_01_F","C_Quadbike_01_F","C_Hatchback_01_F","C_Hatc
 
 switch (_side) do { 
     case 1: {
-        //_milHQ = createCenter west;
+        _milHQ = createCenter west;
 		if(isNil("_milGroup"))then{_milGroup = createGroup west;}else{_milGroup = _milGroup;};
         _menArray = _blueMenArray;
 		_diveArray = _BLUdivers;
     }; 
     case 2: {
-        //_milHQ = createCenter east;
+        _milHQ = createCenter east;
         if(isNil("_milGroup"))then{_milGroup = createGroup east;}else{_milGroup = _milGroup;};
         _menArray = _redMenArray;
 		_diveArray = _OPFdivers;
     }; 
 	case 3: {
-        //_milHQ = createCenter resistance;
+        _milHQ = createCenter resistance;
         if(isNil("_milGroup"))then{_milGroup = createGroup resistance;}else{_milGroup = _milGroup;};
         _menArray = _greenMenArray;
 		_diveArray = _INDdivers;
     }; 
     default {
-        //_milHQ = createCenter civilian;
+        _milHQ = createCenter civilian;
         if(isNil("_milGroup"))then{_milGroup = createGroup civilian;}else{_milGroup = _milGroup;};
         _menArray = _yellowMenArray;
     }; 

@@ -521,8 +521,8 @@ p_addPlayerSave = {
 p_disconnectSave = {
   diag_log format["%1 call p_disconnectSave", _this];
   ARGVX3(0,_player,objNull);
-  ARGVX3(1,_uid,"");
-  ARGVX3(2,_name,"");
+  ARGVX3(2,_uid,"");
+  ARGVX3(3,_name,"");
 
 
   init(_scope,_uid call PDB_playerFileName);

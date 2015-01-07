@@ -65,17 +65,17 @@ _greenMenArray = ["I_Soldier_A_F","I_soldier_AR_F","I_medic_F","I_engineer_F","I
 
 switch (_sideOption) do { 
     case 1: {
-        _milHQ = createCenter west;
+        //_milHQ = createCenter west;
 		if(isNil("_milGroup"))then{_milGroup = createGroup west;}else{_milGroup = _milGroup};
         _menArray = (_BLUarrays call BIS_fnc_selectRandom);
     }; 
 	case 2: {
-        _milHQ = createCenter east;
+        //_milHQ = createCenter east;
         if(isNil("_milGroup"))then{_milGroup = createGroup east;}else{_milGroup = _milGroup};
         _menArray = (_OPFarrays call BIS_fnc_selectRandom);
     };	
     default {
-        _milHQ = createCenter resistance;
+        //_milHQ = createCenter resistance;
         if(isNil("_milGroup"))then{_milGroup = createGroup resistance;}else{_milGroup = _milGroup};
         _menArray = _greenMenArray;
     }; 

@@ -20,19 +20,19 @@ if(typeName _size == "ARRAY")then{
 switch(_side)do{
 	case 0:{
 		_men = _BLUmen;
-		_BLUhq = createCenter west;
+		//_BLUhq = createCenter west;
 		_BLUgrp = createGroup west;
 		_grp = _BLUgrp;
 	};
 	case 1:{
 		_men = _OPFmen;
-		_OPFhq = createCenter east;
+		//_OPFhq = createCenter east;
 		_OPFgrp = createGroup east;
 		_grp = _OPFgrp;
 	};
 	case 2:{
 		_men = _INDmen;
-		_INDhq = createCenter resistance;
+		//_INDhq = createCenter resistance;
 		_INDgrp = createGroup resistance;
 		_grp = _INDgrp;
 	};

@@ -204,7 +204,7 @@ _onCaptureFinished =
 	_groupID = nil;
 	 //Custom init for each unit. Lock vehicle, gear and so on. Lock vehicle: "if (this isKindOf 'Vehicle') then {this lock 2}";
 	 
-	_customInit = "[[this], 'A3W_fnc_disableFF',true, true] call BIS_fnc_MP; this setSpeaker 'NoVoice';";
+	_customInit = "[[this], 'A3W_fnc_disableFF',true, true] call BIS_fnc_MP; this setSpeaker 'NoVoice'; this addEventHandler ['Killed', server_playerDied]; this setVariable ['isGuard',true,true];";
 	
 	_territoryID = nil;
 	
@@ -295,7 +295,7 @@ _onCaptureFinished =
 			[_pos,_numSide,_radius,_spawnInfantry,_spawnVehicles,_stayStill,[_infantryAlways,_infantryRandom],[_vehiclesAlways,_vehiclesRandom],_aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit},_territoryID] execVM "addons\AI_spawn\militarize.sqf";			
 			MilitarizeScriptIDs pushBack _territoryID;
 			//diag_log format ["MilitarizeScriptIDs: %1",MilitarizeScriptIDs];
-			[MilitarizeScriptIDs,[],1500,true,true] execVM "addons\AI_spawn\LV_functions\LV_fnc_simpleCache.sqf";	
+			//[MilitarizeScriptIDs,[],1500,true,true] execVM "addons\AI_spawn\LV_functions\LV_fnc_simpleCache.sqf";	
 		};
 	}else{
 		[_captureName,_radius,_territoryID] spawn {

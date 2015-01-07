@@ -31,7 +31,7 @@ if (isPlayer _killer) then
 	_killerSide = side group _killer;
 	_indyIndyKill = ((_victimSide == _killerSide) && !(_victimSide in [BLUFOR,OPFOR]) && (group _unit != group _killer));
 	_enemyKill = (_killerSide getFriend _victimSide < 0.6 || _indyIndyKill);
-  _guardKill = (_unit getVariable ["A3W_fnc_disableFF",false]);
+  _guardKill = (_unit getVariable ["isGuard",false]);
 
 	if (isPlayer _unit) then
 	{

@@ -10,7 +10,7 @@ _BLUveh = [
 	//"B_MBT_01_mlrs_F"
 	"B_MRAP_01_F",
 	"B_MRAP_01_hmg_F",
-	"B_MRAP_01_gmg_F",
+	"B_MRAP_01_gmg_F"
 	//"B_Truck_01_transport_F",
 	//"B_Truck_01_covered_F",
 	//"B_APC_Tracked_01_rcws_F",
@@ -24,7 +24,7 @@ _OPFveh = [
 	//"O_Quadbike_01_F",
 	"O_MRAP_02_F",
 	"O_MRAP_02_gmg_F",
-	"O_MRAP_02_hmg_F",
+	"O_MRAP_02_hmg_F"
 	//"O_Truck_02_transport_F",
 	//"O_Truck_02_covered_F",
 	//"O_APC_Wheeled_02_rcws_F",
@@ -36,13 +36,13 @@ _OPFveh = [
 _INDveh = [
 	"I_MRAP_03_F",
 	"I_MRAP_03_gmg_F",
-	"I_MRAP_03_hmg_F",
-	"I_Quadbike_01_F",
-	"I_Truck_02_transport_F",
-	"I_Truck_02_covered_F",
-	"I_APC_Wheeled_03_cannon_F",
-	"I_APC_Wheeled_03_cannon_F",
-	"I_APC_Wheeled_03_cannon_F"
+	"I_MRAP_03_hmg_F"
+	//"I_Quadbike_01_F",
+	//"I_Truck_02_transport_F",
+	//"I_Truck_02_covered_F",
+	//"I_APC_Wheeled_03_cannon_F",
+	//"I_APC_Wheeled_03_cannon_F",
+	//"I_APC_Wheeled_03_cannon_F"
 ];
 
 _men = [];
@@ -50,19 +50,19 @@ _veh = [];
 
 switch(_side)do{
 	case 0:{
-		_BLUhq = createCenter west;
+		//_BLUhq = createCenter west;
 		_BLUgrp = createGroup west;
 		_veh = _BLUveh;
 		_grp = _BLUgrp;
 	};
 	case 1:{
-		_OPFhq = createCenter east;
+		//_OPFhq = createCenter east;
 		_OPFgrp = createGroup east;
 		_veh = _OPFveh;
 		_grp = _OPFgrp;
 	};
 	case 2:{
-		_INDhq = createCenter resistance;
+		//_INDhq = createCenter resistance;
 		_INDgrp = createGroup resistance;
 		_veh = _INDveh;
 		_grp = _INDgrp;

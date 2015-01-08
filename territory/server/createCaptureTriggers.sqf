@@ -33,15 +33,15 @@ if (!isServer) exitWith {};
       _stayStill = false; //Stay still and do not patrol
       _infantryAlways = _radius*0.03; //3% from radius
       _infantryRandom = 0;
-      _vehiclesAlways = 1;
-      _vehiclesRandom = 1;
+      _vehiclesAlways = 0;
+      _vehiclesRandom = 0;
       _aiSkills = 0.50; //Default or an array
       _groupID = nil;
       
       _customInit = "[[this], 'A3W_fnc_disableFF',true, true] call BIS_fnc_MP; this setSpeaker 'NoVoice'; this addEventHandler ['Killed', server_playerDied]; this setVariable ['isGuard',true,true];";
       _territoryID = nil;
       
-			[_pos,_numSide,_radius,_spawnInfantry,_spawnVehicles,_stayStill,[_infantryAlways,_infantryRandom],[_vehiclesAlways,_vehiclesRandom],_aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit},if (isNil "_territoryID") then {nil} else {_territoryID}] execVM "addons\AI_spawn\militarize.sqf";	
+			[_pos,_numSide,_radius,_spawnInfantry,_spawnVehicles,_stayStill,[_infantryAlways,_infantryRandom],[_vehiclesAlways,_vehiclesRandom],_aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit},if (isNil "_territoryID") then {nil} else {_territoryID}] execVM "addons\AI_spawn\militarize.sqf";
 		}
 		else
 		{

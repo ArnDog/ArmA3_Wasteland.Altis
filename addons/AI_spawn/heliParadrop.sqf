@@ -55,7 +55,7 @@ if (!isServer)exitWith{};
 private ["_mp","_grp","_heliType","_men","_grp2","_center","_man1","_man2","_landingSpot","_side","_flyHeight","_openHeight","_jumpDelay","_jumperAmount","_heliDistance","_heliDirection","_flyBy","_allowDamage","_BLUmen","_OPFmen","_INDmen","_BLUchopper","_OPFchopper","_INDchopper","_landingSpotPos","_spos","_heli","_crew","_dir","_flySpot","_jumpDistanceFromTarget","_captive","_smokes","_flares","_chems","_skls","_cPosition","_cRadius","_patrol","_target","_cycle","_skills","_customInit","_grpId","_wp0","_wp1","_doorHandling"];
 
 //Extra settings:
-_doorHandling = true;
+_doorHandling = false;
 //
 
 _landingSpot = if (count _this > 0) then {_this select 0};

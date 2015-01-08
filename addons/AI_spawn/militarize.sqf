@@ -43,7 +43,7 @@ private ["_greenMenArray","_grpId","_customInit","_cPos","_skls","_skills","_dir
 
 //Extra options:
 _smokesAndChems = true;
-_doorHandling = true;
+_doorHandling = false;
 //
 
 _cPos = if(count _this > 0)then{_this select 0;};
@@ -161,13 +161,22 @@ if((_men select 0)||(_men select 1))then{
 				};
 			};
 		};
-		_unit = _milGroup createUnit [_unitType, _pos, [], 0, "NONE"];
     
-    _weaponTypes = ["srifle_EBR_ARCO_pointer_F","arifle_MXM_Hamr_pointer_F","srifle_EBR_ARCO_pointer_snds_F","LMG_Mk200_MRCO_F"];
-    _unit forceAddUniform "U_I_GhillieSuit";
-    [_unit, _weaponTypes call BIS_fnc_selectRandom, 3] call BIS_fnc_addWeapon;
-		_unit setPos _pos;
-
+    _unit = _milGroup createUnit [_unitType, _pos, [], 0, "NONE"];
+    _unit setPos _pos;
+    
+    if (_side == 0) then {
+      _weaponTypes = ["srifle_EBR_ARCO_pointer_F","arifle_MXM_Hamr_pointer_F","srifle_EBR_ARCO_pointer_snds_F","LMG_Mk200_MRCO_F"];
+      _unit forceAddUniform "U_I_GhillieSuit";
+      [_unit, _weaponTypes call BIS_fnc_selectRandom, 3] call BIS_fnc_addWeapon;
+      
+      _unit setCaptive false;
+      //_setRating = -10000;//value rating is to be set to.
+      _getRating = rating _unit;
+      _addVal = _setRating - _getRating;
+      _unit addRating _addVal;
+    };
+    
 		if(!_still)then{
 			if(_unitType in _menArray)then{
 				nul = [_unit,_cPos,_radius,_doorHandling] execVM "addons\AI_spawn\patrol-vD.sqf";

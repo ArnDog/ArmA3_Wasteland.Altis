@@ -289,7 +289,7 @@ _onCaptureFinished =
 		if (_useParadrop) then {
 			//Using paradrop script
 			//
-			[_captureName, _numSide, true, false, 1000, _dir, true, 500, 100, _infantryAlways + (round(random _infantryRandom)), 0.5, 50, true, true, true, true, ["PATROL",_pos,(_radius/2)], true, _aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit}, _territoryID, false] execVM "addons\AI_spawn\heliParadrop.sqf";
+			[_captureName, _numSide, true, false, 1000, _dir, true, 500, 100, _infantryAlways + (round(random _infantryRandom)), 0.5, 100, true, true, true, true, ["PATROL",_pos,(_radius/2)], true, _aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit}, _territoryID, false] execVM "addons\AI_spawn\heliParadrop.sqf";
 		}else{
 			//Using militarize script
 			[_pos,_numSide,_radius,_spawnInfantry,_spawnVehicles,_stayStill,[_infantryAlways,_infantryRandom],[_vehiclesAlways,_vehiclesRandom],_aiSkills, if (isNil "_groupID") then {nil} else {_groupID}, if (isNil "_customInit") then {nil} else {_customInit},_territoryID] execVM "addons\AI_spawn\militarize.sqf";			

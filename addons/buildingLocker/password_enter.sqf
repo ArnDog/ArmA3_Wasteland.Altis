@@ -27,6 +27,7 @@ if (OutputText == _building getVariable ["password",""]) then {
 	[[_building,DURATION,_doorsAmount], "A3W_fnc_closeBuildingDoors", false, false, true] call BIS_fnc_MP;
 	[format ["Doors opened for %1 seconds ",DURATION], 5] call mf_notify_client;	
 }else{
+  playSound "FD_CP_Not_Clear_F";
 	["Wrong password!", 5] call mf_notify_client;	
 };
 

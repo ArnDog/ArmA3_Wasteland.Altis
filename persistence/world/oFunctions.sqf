@@ -914,6 +914,7 @@ o_loadObjects = {
 
     }} forEach _objects;
     _objects = _objects - [objNull];
+    sleep 10;
   } forEach o_loadingOrderArray;
   
   diag_log format["A3Wasteland - Total database objects: %1 ", _total_objects];

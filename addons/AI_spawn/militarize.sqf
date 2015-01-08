@@ -43,7 +43,7 @@ private ["_greenMenArray","_grpId","_customInit","_cPos","_skls","_skills","_dir
 
 //Extra options:
 _smokesAndChems = true;
-_doorHandling = false;
+_doorHandling = true;
 //
 
 _cPos = if(count _this > 0)then{_this select 0;};

@@ -58,8 +58,7 @@ while { alive _unit }do{
     	waitUntil {unitReady _unit || _unit distance _newPos < 2};
     	_unit doMove _newPos;
     	waitUntil {unitReady _unit || _unit distance _newPos < 2};
-      
-/*********************************************************************
+	
 	if(_buildingVisits < _buildingVisitMax)then{
 		_buildingVisits = _buildingVisits + 1;
 	}else{
@@ -112,7 +111,6 @@ while { alive _unit }do{
 			if(true)exitWith{};
 		};
 	};
-*******************************************************************/
     sleep 1 + random 59;
 };
 

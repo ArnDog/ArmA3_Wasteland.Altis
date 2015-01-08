@@ -33,7 +33,7 @@ storeSellingHandle = _this spawn
 	{
 		if (_x select 1 == _objClass) exitWith
 		{
-			_allObjItems = [[_objClass, 1, _objName, GET_HALF_PRICE(_x select 2)]] + _allObjItems;
+			_allObjItems = [[_objClass, 1, _objName, GET_PERCENT_PRICE(10,(_x select 2))]] + _allObjItems;
 			_added = true;
 		};
 	} forEach (call vestArray);

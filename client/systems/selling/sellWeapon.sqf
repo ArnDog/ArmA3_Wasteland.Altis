@@ -38,7 +38,7 @@ storeSellingHandle = [] spawn
 	{
 		if (_x select 1 == _currWep) exitWith
 		{
-			_sellValue = GET_HALF_PRICE(_x select 2);
+			_sellValue = GET_PERCENT_PRICE(10,(_x select 2));
 		};
 	} forEach (call allGunStoreFirearms);
 
@@ -87,7 +87,7 @@ storeSellingHandle = [] spawn
 		} forEach (call ammoArray);
 
 		{
-			_sellValue = _sellValue + GET_HALF_PRICE(_magValue * (_x / _magFullAmmo)); // Get selling price relative to ammo count
+			_sellValue = _sellValue + GET_PERCENT_PRICE(10,(_magValue * (_x / _magFullAmmo))); // Get selling price relative to ammo count
 		} forEach _magAmmos;
 
 		_confirmMsg = _confirmMsg + "<br/><t font='EtelkaMonospaceProBold'>" + str count _magAmmos + "</t> x " + _magName;
@@ -107,7 +107,7 @@ storeSellingHandle = [] spawn
 				if (_x select 1 == _wepItem) exitWith
 				{
 					_itemName = _x select 0;
-					_itemValue = GET_HALF_PRICE(_x select 2);
+					_itemValue = GET_PERCENT_PRICE(10,_x select 2);
 				};
 			} forEach (call accessoriesArray);
 

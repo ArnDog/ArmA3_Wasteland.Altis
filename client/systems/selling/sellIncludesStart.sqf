@@ -7,5 +7,7 @@
 #define PRICE_DEBUGGING false
 #define CARGO_STRING(OBJ) (str getWeaponCargo OBJ + str getMagazineCargo OBJ + str getItemCargo OBJ + str getBackpackCargo OBJ)
 #define GET_HALF_PRICE(PRICE) ((ceil (((PRICE) / 2) / 5)) * 5)
+#define GET_PERCENT_PRICE(PERCENT,PRICE) ((ceil (((PRICE) * (PERCENT/100)) / 5)) * 5)
+
 
 if (!isNil "storeSellingHandle" && {typeName storeSellingHandle == "SCRIPT"} && {!scriptDone storeSellingHandle}) exitWith {hint "Please wait, your previous sale is being processed"};

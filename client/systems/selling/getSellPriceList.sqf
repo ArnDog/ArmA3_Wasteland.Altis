@@ -11,6 +11,7 @@
 // _x select 3 = Value
 
 #define GET_HALF_PRICE(PRICE) ((ceil (((PRICE) / 2) / 5)) * 5)
+#define GET_PERCENT_PRICE(PERCENT,PRICE) ((ceil (((PRICE) * (PERCENT/100)) / 5)) * 5)
 
 private ["_obj", "_sellValue", "_objItems", "_objMags", "_objWeapons", "_weaponArray", "_class", "_container", "_allStoreMagazines", "_allGunStoreFirearms", "_allStoreItems", "_weaponEntry", "_weaponClass", "_weaponQty", "_weaponCfg", "_weaponCfgModel", "_masterCfg", "_found", "_cfgItems", "_allObjItems", "_item", "_itemClass", "_itemQty", "_itemValue", "_itemQtyArr", "_cfgCategory", "_magFullAmmo", "_magFullPrice", "_magValue", "_itemName"];
 
@@ -154,7 +155,8 @@ _allObjItems = [];
 			} forEach _allStoreMagazines;
 
 			{
-				_magValue = GET_HALF_PRICE(_itemValue * (_x / _magFullAmmo)); // Get selling price relative to ammo count
+				_magValue = GET_PERCENT_PRICE(10,(_itemValue * (_x / _magFullAmmo))); // Get selling price relative to ammo count
+        
 				_sellValue = _sellValue + _magValue;
 			} forEach _itemQtyArr;
 
@@ -165,7 +167,7 @@ _allObjItems = [];
 			{
 				if (_x select 1 == _itemClass) exitWith
 				{
-					_itemValue = GET_HALF_PRICE((_x select 2) * _itemQty);
+					_itemValue = GET_PERCENT_PRICE(10,(_x select 2) * _itemQty);
 				};
 			} forEach _allStoreItems;
 

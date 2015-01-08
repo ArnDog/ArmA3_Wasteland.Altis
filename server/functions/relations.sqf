@@ -14,19 +14,15 @@ diag_log "WASTELAND SERVER - Initializing Server Relations";
 BLUFOR setFriend [BLUFOR, 1];
 BLUFOR setFriend [OPFOR, 0];
 BLUFOR setFriend [INDEPENDENT, 0];
-BLUFOR setFriend [CIVILIAN, 0];
 
 OPFOR setFriend [BLUFOR, 0];
 OPFOR setFriend [OPFOR, 1];
 OPFOR setFriend [INDEPENDENT, 0];
-OPFOR setFriend [CIVILIAN, 0];
 
 INDEPENDENT setFriend [BLUFOR, 0];
 INDEPENDENT setFriend [OPFOR, 0];
 INDEPENDENT setFriend [INDEPENDENT, 1];
-INDEPENDENT setFriend [CIVILIAN, 0];
 
-CIVILIAN setFriend [CIVILIAN, 1];
 CIVILIAN setFriend [BLUFOR, 0];
 CIVILIAN setFriend [OPFOR, 0];
 CIVILIAN setFriend [INDEPENDENT, 0];

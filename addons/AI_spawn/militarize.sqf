@@ -169,12 +169,13 @@ if((_men select 0)||(_men select 1))then{
       _weaponTypes = ["srifle_EBR_ARCO_pointer_F","arifle_MXM_Hamr_pointer_F","srifle_EBR_ARCO_pointer_snds_F","LMG_Mk200_MRCO_F"];
       _unit forceAddUniform "U_I_GhillieSuit";
       [_unit, _weaponTypes call BIS_fnc_selectRandom, 3] call BIS_fnc_addWeapon;
-      
+      /*************************
       _unit setCaptive false;
-      //_setRating = -10000;//value rating is to be set to.
+      _setRating = -10000;//value rating is to be set to.
       _getRating = rating _unit;
       _addVal = _setRating - _getRating;
       _unit addRating _addVal;
+      *************************/
     };
     
 		if(!_still)then{

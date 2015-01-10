@@ -3,10 +3,10 @@
 
 			Calling the script:
 			
-		default: 	nul = [this] execVM "LV\militarize.sqf";
+		default: 	nul = [this] execVM "addons\AI_spawn\militarize.sqf";
 		
 		custom:		nul = [target, side, radius, spawn men, spawn vehicles, still, men ratio, vehicle ratio, 
-							skills, group, custom init, ID] execVM "LV\militarize.sqf";
+							skills, group, custom init, ID] execVM "addons\AI_spawn\militarize.sqf";
 
 		Parameters:
 		
@@ -36,7 +36,7 @@
 				EXAMPLE: "hint 'this is hint';"
 	ID 			= 	number (if you want to delete units this script creates, you'll need ID number for them) 		DEFAULT: nil
 
-EXAMPLE: nul = [this,2,50,[true,true],[true,false,true],false,[10,0],0.1,[0.2,0.2,0.2,0.85,0.9,0.75,0.1,0.6,1,1],nil,nil,13] execVM "LV\militarize.sqf";
+EXAMPLE: nul = [this,2,50,[true,true],[true,false,true],false,[10,0],0.1,[0.2,0.2,0.2,0.85,0.9,0.75,0.1,0.6,1,1],nil,nil,13] execVM "addons\AI_spawn\militarize.sqf";
 */
 if (!isServer)exitWith{};
 private ["_greenMenArray","_grpId","_customInit","_cPos","_skls","_skills","_dir","_range","_unitType","_unit","_radius","_men","_vehicles","_still","_centerPos","_menAmount","_vehAmount","_milHQ","_milGroup","_menArray","_blueMenArray","_redMenArray","_yellowMenArray","_side","_pos","_yellowCarArray","_allUnitsArray","_menRatio","_vehRatio","_diveArray","_validPos","_side","_driver","_whichOne","_vehicle","_crew","_thisArray","_smokesAndChems","_doorHandling","_BLUdivers","_OPFdivers","_INDdivers"];
@@ -69,12 +69,12 @@ if(_cPos in allMapMarkers)then{
 	};
 };
 
-if(isNil("LV_ACskills"))then{LV_ACskills = compile preprocessFile "LV\LV_functions\LV_fnc_ACskills.sqf";};
-if(isNil("LV_vehicleInit"))then{LV_vehicleInit = compile preprocessFile "LV\LV_functions\LV_fnc_vehicleInit.sqf";};
+if(isNil("LV_ACskills"))then{LV_ACskills = compile preprocessFile "addons\AI_spawn\LV_functions\LV_fnc_ACskills.sqf";};
+if(isNil("LV_vehicleInit"))then{LV_vehicleInit = compile preprocessFile "addons\AI_spawn\LV_functions\LV_fnc_vehicleInit.sqf";};
 
-if(isNil("LV_fullLandVehicle"))then{LV_fullLandVehicle = compile preprocessFile "LV\LV_functions\LV_fnc_fullLandVehicle.sqf";};
-if(isNil("LV_fullAirVehicle"))then{LV_fullAirVehicle = compile preprocessFile "LV\LV_functions\LV_fnc_fullAirVehicle.sqf";};
-if(isNil("LV_fullWaterVehicle"))then{LV_fullWaterVehicle = compile preprocessFile "LV\LV_functions\LV_fnc_fullWaterVehicle.sqf";};
+if(isNil("LV_fullLandVehicle"))then{LV_fullLandVehicle = compile preprocessFile "addons\AI_spawn\LV_functions\LV_fnc_fullLandVehicle.sqf";};
+if(isNil("LV_fullAirVehicle"))then{LV_fullAirVehicle = compile preprocessFile "addons\AI_spawn\LV_functions\LV_fnc_fullAirVehicle.sqf";};
+if(isNil("LV_fullWaterVehicle"))then{LV_fullWaterVehicle = compile preprocessFile "addons\AI_spawn\LV_functions\LV_fnc_fullWaterVehicle.sqf";};
 
 if(typeName _menRatio == "ARRAY")then{	
 	_menAmount = (_menRatio select 0) + (random (_menRatio select 1));
@@ -161,14 +161,28 @@ if((_men select 0)||(_men select 1))then{
 				};
 			};
 		};
-		_unit = _milGroup createUnit [_unitType, _pos, [], 0, "NONE"];
-		_unit setPos _pos;
-
+    
+    _unit = _milGroup createUnit [_unitType, _pos, [], 0, "NONE"];
+    _unit setPos _pos;
+    
+    if (_side == 0) then {
+      _weaponTypes = ["srifle_EBR_ARCO_pointer_F","arifle_MXM_Hamr_pointer_F","srifle_EBR_ARCO_pointer_snds_F","LMG_Mk200_MRCO_F"];
+      _unit forceAddUniform "U_I_GhillieSuit";
+      [_unit, _weaponTypes call BIS_fnc_selectRandom, 3] call BIS_fnc_addWeapon;
+      /*************************
+      _unit setCaptive false;
+      _setRating = -10000;//value rating is to be set to.
+      _getRating = rating _unit;
+      _addVal = _setRating - _getRating;
+      _unit addRating _addVal;
+      *************************/
+    };
+    
 		if(!_still)then{
 			if(_unitType in _menArray)then{
-				nul = [_unit,_cPos,_radius,_doorHandling] execVM "LV\patrol-vD.sqf";
+				nul = [_unit,_cPos,_radius,_doorHandling] execVM "addons\AI_spawn\patrol-vD.sqf";
 			}else{
-				nul = [_unit,_pos] execVM 'LV\patrol-vH.sqf';
+				nul = [_unit,_pos] execVM 'addons\AI_spawn\patrol-vH.sqf';
 			};
 		};
 		_unit allowDamage false;
@@ -195,7 +209,7 @@ if((_vehicles select 0)||(_vehicles select 1)||(_vehicles select 2))then{
 				if(surfaceIsWater _pos)then{
 					if(_vehicles select 1)then{
 						_driver = [_pos, (_side - 1)] call LV_fullWaterVehicle;
-						if(!_still)then{nul = [vehicle _driver,_pos] execVM 'LV\patrol-vH.sqf';};
+						if(!_still)then{nul = [vehicle _driver,_pos] execVM 'addons\AI_spawn\patrol-vH.sqf';};
 						_validPos = true;
 					};
 				}else{
@@ -203,23 +217,23 @@ if((_vehicles select 0)||(_vehicles select 1)||(_vehicles select 2))then{
 						_whichOne = floor(random 10);
 						if(_whichOne < 3)then{
 							_driver = [_pos, (_side - 1)] call LV_fullAirVehicle;
-							if(!_still)then{nul = [_driver,_pos,[200,200]] execVM 'LV\patrol-vE.sqf';};
+							if(!_still)then{nul = [_driver,_pos,[200,200]] execVM 'addons\AI_spawn\patrol-vE.sqf';};
 							vehicle _driver flyInHeight 10;
 							_validPos = true;
 						}else{
 							_driver = [_pos, (_side - 1)] call LV_fullLandVehicle;
-							if(!_still)then{nul = [vehicle _driver,_pos] execVM 'LV\patrol-vE.sqf';};
+							if(!_still)then{nul = [vehicle _driver,_pos] execVM 'addons\AI_spawn\patrol-vE.sqf';};
 							_validPos = true;
 						};
 					}else{
 						if(_vehicles select 0)then{
 							_driver = [_pos, (_side - 1)] call LV_fullLandVehicle;
-							if(!_still)then{nul = [vehicle _driver,_pos] execVM 'LV\patrol-vE.sqf';};
+							if(!_still)then{nul = [vehicle _driver,_pos] execVM 'addons\AI_spawn\patrol-vE.sqf';};
 							_validPos = true;
 						}else{
 							if(_vehicles select 2)then{
 								_driver = [_pos, (_side - 1)] call LV_fullAirVehicle;
-								if(!_still)then{nul = [_driver,_pos,[200,200]] execVM 'LV\patrol-vE.sqf';};
+								if(!_still)then{nul = [_driver,_pos,[200,200]] execVM 'addons\AI_spawn\patrol-vE.sqf';};
 								vehicle _driver flyInHeight 10;
 								_validPos = true;
 							};
@@ -232,7 +246,7 @@ if((_vehicles select 0)||(_vehicles select 1)||(_vehicles select 2))then{
 					_vehicle = createVehicle [_unitType, _pos, [], 0, "NONE"]; 
 					_crew = [_vehicle, _milGroup] call BIS_fnc_spawnCrew;
 					_driver = driver _vehicle;
-					if(!_still)then{nul = [_driver,_pos] execVM 'LV\patrol-vE.sqf';};
+					if(!_still)then{nul = [_driver,_pos] execVM 'addons\AI_spawn\patrol-vE.sqf';};
 					_validPos = true;
 				};
 			};

@@ -160,7 +160,7 @@ lootMagazine_list =
 			"ClaymoreDirectionalMine_Remote_Mag",
 			"HandGrenade",
 			"MiniGrenade",
-			"SatchelCharge_Remote_Mag",
+			//"SatchelCharge_Remote_Mag",
 			"SLAMDirectionalMine_Wire_Mag"
 		]
 	],

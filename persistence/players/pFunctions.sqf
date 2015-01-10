@@ -96,11 +96,11 @@ p_restoreUniform = {
   ARGV4(0,_value,"","");
 
   if (_value == "") exitWith {
-    player addUniform ([player, "uniform"] call getDefaultClothing);
+    player forceAddUniform ([player, "uniform"] call getDefaultClothing);
   };
 
   if (player isUniformAllowed _value) exitWith {
-	  player addUniform _value;
+	  player forceAddUniform _value;
   };
 
   // If uniform cannot be worn by player due to different team, try to convert it, else give default instead
@@ -108,10 +108,10 @@ p_restoreUniform = {
   _newUniform = [player, _value] call uniformConverter;
 
   if (player isUniformAllowed _newUniform) exitWith {
-    player addUniform _newUniform;
+    player forceAddUniform _newUniform;
   };
 
-  player addUniform ([player, "uniform"] call getDefaultClothing);
+  player forceAddUniform ([player, "uniform"] call getDefaultClothing);
 };
 
 p_restoreVest = {

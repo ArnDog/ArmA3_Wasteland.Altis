@@ -100,34 +100,34 @@ allGunStoreFirearms = compileFinal str (call pistolArray + call smgArray + call 
 
 staticGunsArray = compileFinal str
 [
-	["Vehicle Ammo Crate", "Box_NATO_AmmoVeh_F", 74999],
-	["Static Titan AT 4Rnd (NATO)", "B_static_AT_F", 25000], // Static launchers only have 4 ammo, hence the low price
-	["Static Titan AT 4Rnd (CSAT)", "O_static_AT_F", 25000],
-	["Static Titan AT 4Rnd (AAF)", "I_static_AT_F", 25000],
-	["Static Titan AA 4Rnd (NATO)", "B_static_AA_F", 40000],
-	["Static Titan AA 4Rnd (CSAT)", "O_static_AA_F",40000],
-	["Static Titan AA 4Rnd (AAF)", "I_static_AA_F", 40000],
-	["Mk30 HMG .50 Low tripod (NATO)", "B_HMG_01_F", 25000],
-	["Mk30 HMG .50 Low tripod (CSAT)", "O_HMG_01_F", 25000],
-	["Mk30 HMG .50 Low tripod (AAF)", "I_HMG_01_F", 25000],
-	["Mk30A HMG .50 Sentry (NATO)", "B_HMG_01_A_F", 250000], // "A" = Autonomous = Overpowered
-	["Mk30A HMG .50 Sentry (CSAT)", "O_HMG_01_A_F", 250000],
-	["Mk30A HMG .50 Sentry (AAF)", "I_HMG_01_A_F", 250000],
-	["Mk30 HMG .50 High tripod (NATO)", "B_HMG_01_high_F", 30000],
-	["Mk30 HMG .50 High tripod (CSAT)", "O_HMG_01_high_F", 30000],
-	["Mk30 HMG .50 High tripod (AAF)", "I_HMG_01_high_F", 30000],
-	["Mk32 GMG 20mm Low tripod (NATO)", "B_GMG_01_F", 55000],
-	["Mk32 GMG 20mm Low tripod (CSAT)", "O_GMG_01_F", 55000],
-	["Mk32 GMG 20mm Low tripod (AAF)", "I_GMG_01_F", 55000],
-	["Mk32A GMG 20mm Sentry (NATO)", "B_GMG_01_A_F", 350000],
-	["Mk32A GMG 20mm Sentry (CSAT)", "O_GMG_01_A_F", 350000],
-	["Mk32A GMG 20mm Sentry (AAF)", "I_GMG_01_A_F", 350000],
-	["Mk32 GMG 20mm High tripod (NATO)", "B_GMG_01_high_F", 60000],
-	["Mk32 GMG 20mm High tripod (CSAT)", "O_GMG_01_high_F", 60000],
-	["Mk32 GMG 20mm High tripod (AAF)", "I_GMG_01_high_F", 60000],
-	["Mk6 Mortar (NATO)", "B_Mortar_01_F", 125000],
-	["Mk6 Mortar (CSAT)", "O_Mortar_01_F", 125000],
-	["Mk6 Mortar (AAF)", "I_Mortar_01_F", 125000]
+	["Vehicle Ammo Crate", "Box_NATO_AmmoVeh_F", 15000],
+	["Static Titan AT 4Rnd (NATO)", "B_static_AT_F", 202000], // Static launchers only have 4 ammo, hence the low price
+	["Static Titan AT 4Rnd (CSAT)", "O_static_AT_F", 202000],
+	["Static Titan AT 4Rnd (AAF)", "I_static_AT_F", 202000],
+	["Static Titan AA 4Rnd (NATO)", "B_static_AA_F", 202000],
+	["Static Titan AA 4Rnd (CSAT)", "O_static_AA_F",202000],
+	["Static Titan AA 4Rnd (AAF)", "I_static_AA_F", 202000],
+	["Mk30 HMG .50 Low tripod (NATO)", "B_HMG_01_F", 202000],
+	["Mk30 HMG .50 Low tripod (CSAT)", "O_HMG_01_F", 202000],
+	["Mk30 HMG .50 Low tripod (AAF)", "I_HMG_01_F", 202000],
+	["Mk30A HMG .50 Sentry (NATO)", "B_HMG_01_A_F", 305000], // "A" = Autonomous = Overpowered
+	["Mk30A HMG .50 Sentry (CSAT)", "O_HMG_01_A_F", 305000],
+	["Mk30A HMG .50 Sentry (AAF)", "I_HMG_01_A_F", 305000],
+	["Mk30 HMG .50 High tripod (NATO)", "B_HMG_01_high_F", 202000],
+	["Mk30 HMG .50 High tripod (CSAT)", "O_HMG_01_high_F", 202000],
+	["Mk30 HMG .50 High tripod (AAF)", "I_HMG_01_high_F", 202000],
+	["Mk32 GMG 20mm Low tripod (NATO)", "B_GMG_01_F", 202000],
+	["Mk32 GMG 20mm Low tripod (CSAT)", "O_GMG_01_F", 202000],
+	["Mk32 GMG 20mm Low tripod (AAF)", "I_GMG_01_F", 202000],
+	["Mk32A GMG 20mm Sentry (NATO)", "B_GMG_01_A_F", 305000],
+	["Mk32A GMG 20mm Sentry (CSAT)", "O_GMG_01_A_F", 305000],
+	["Mk32A GMG 20mm Sentry (AAF)", "I_GMG_01_A_F", 305000],
+	["Mk32 GMG 20mm High tripod (NATO)", "B_GMG_01_high_F", 202000],
+	["Mk32 GMG 20mm High tripod (CSAT)", "O_GMG_01_high_F", 202000],
+	["Mk32 GMG 20mm High tripod (AAF)", "I_GMG_01_high_F", 202000],
+	["Mk6 Mortar (NATO)", "B_Mortar_01_F", 104160],
+	["Mk6 Mortar (CSAT)", "O_Mortar_01_F", 104160],
+	["Mk6 Mortar (AAF)", "I_Mortar_01_F", 104160]
 ];
 
 throwputArray = compileFinal str
@@ -141,7 +141,7 @@ throwputArray = compileFinal str
 	["M6 SLAM Mine", "SLAMDirectionalMine_Wire_Mag", 13500],
 	["AT Mine", "ATMine_Range_Mag", 14000],
 	["Explosive Charge", "DemoCharge_Remote_Mag", 26000],
-	["Explosive Satchel", "SatchelCharge_Remote_Mag", 35000],
+	//["Explosive Satchel", "SatchelCharge_Remote_Mag", 35000],
 	["Smoke Grenade (White)", "SmokeShell", 345],
 	["Smoke Grenade (Purple)", "SmokeShellPurple", 345],
 	["Smoke Grenade (Blue)", "SmokeShellBlue", 345],

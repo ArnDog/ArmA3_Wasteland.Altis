@@ -31,7 +31,7 @@ if (!isServer) exitWith {};
       _spawnInfantry = [true,false]; //Land, Water
       _spawnVehicles = [true,false,false]; //Land,Water,Air
       _stayStill = false; //Stay still and do not patrol
-      _infantryAlways = _radius*0.03; //3% from radius
+      _infantryAlways = _radius*0.015; //1.5% from radius
       _infantryRandom = 0;
       _vehiclesAlways = 0;
       _vehiclesRandom = 0;

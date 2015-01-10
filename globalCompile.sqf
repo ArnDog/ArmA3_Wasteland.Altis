@@ -74,6 +74,7 @@ A3W_fnc_pushVehicle = [_serverFunc, "pushVehicle.sqf"] call mf_compile;
 A3W_fnc_setName = [_clientFunc, "fn_setName.sqf"] call mf_compile;
 A3W_fnc_towingHelper = [_serverFunc, "towingHelper.sqf"] call mf_compile;
 A3W_fnc_setLockState = { (objectFromNetId (_this select 0)) lock (_this select 1) } call mf_compile;
+A3W_fnc_allowDamage = [_clientFunc, "fn_allowDamage.sqf"] call mf_compile;
 A3W_fnc_disableFF = [_clientFunc, "fn_disableFF.sqf"] call mf_compile;
 A3W_fnc_closeBuildingDoors = [_clientFunc, "fn_closeBuildingDoors.sqf"] call mf_compile;
 A3W_fnc_setVectorUpAndDir = [_serverFunc, "fn_setVectorUpAndDir.sqf"] call mf_compile;

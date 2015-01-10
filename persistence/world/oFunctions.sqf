@@ -297,7 +297,7 @@ o_restoreObject = {_this spawn {
     ARGVX3(1,_allowDamage,false);
     //delay the allow damage to allow the box to settle
     sleep 5;
-  _obj setVariable ["allowDamage", _allowDamage];
+  _obj setVariable ["allowDamage", _allowDamage,true];
   _obj allowDamage _allowDamage;
   };
 

@@ -78,6 +78,7 @@ A3W_fnc_allowDamage = [_clientFunc, "fn_allowDamage.sqf"] call mf_compile;
 A3W_fnc_disableFF = [_clientFunc, "fn_disableFF.sqf"] call mf_compile;
 A3W_fnc_closeBuildingDoors = [_clientFunc, "fn_closeBuildingDoors.sqf"] call mf_compile;
 A3W_fnc_setVectorUpAndDir = [_serverFunc, "fn_setVectorUpAndDir.sqf"] call mf_compile;
+A3W_fnc_reboot = {"Reboot" call BIS_fnc_endMission} call mf_compile;
 allPlayers = [_serverFunc, "allPlayers.sqf"] call mf_compile;
 applyVehicleTexture = "client\systems\vehicleStore\applyVehicleTexture.sqf" call mf_compile;
 cargoToPairs = [_serverFunc, "cargoToPairs.sqf"] call mf_compile;

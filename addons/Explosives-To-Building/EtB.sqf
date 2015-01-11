@@ -9,7 +9,7 @@ EtB_ChargeCheck =
 	_unit = _this select 1;
 	_hasIt = _charge in (magazines _unit);
   _boundingBoxVar = abs (((boundingBoxReal cursorTarget) select 0) select 1) + 3;
-  _validBuilding = (cursorTarget isKindOf "Building" && {((cursorTarget distance _unit)<_boundingBoxVar) && {!(cursorTarget getVariable ["allowDamage",true]) && {!(cursorTarget in ["Land_Dome_Big_F","Land_Dome_Small_F"])}}});
+  _validBuilding = (cursorTarget isKindOf "Building" && {((cursorTarget distance _unit)<_boundingBoxVar) && {!(cursorTarget getVariable ["allowDamage",true]) && {!((typeOf cursorTarget) in ["Land_Dome_Big_F","Land_Dome_Small_F"])}}});
 	_return = (_hasIt && _validBuilding && alive _unit);
 	_return
 };

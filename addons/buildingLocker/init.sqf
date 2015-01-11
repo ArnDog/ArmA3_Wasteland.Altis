@@ -24,3 +24,4 @@ if (_usePassword) then {
 _path="addons\buildingLocker";
 fn_getDoorsAmount = [_path, "fn_getDoorsAmount.sqf"] call mf_compile;
 fn_allDoorsLocked = [_path, "fn_allDoorsLocked.sqf"] call mf_compile;
+fn_allDoorsClosed = [_path, "fn_allDoorsClosed.sqf"] call mf_compile;

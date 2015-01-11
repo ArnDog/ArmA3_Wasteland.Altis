@@ -366,3 +366,6 @@ if (["A3W_serverMissions"] call isConfigOn) then
 
 // Start clean-up loop
 [] execVM "server\WastelandServClean.sqf";
+
+//Start door auto-closing
+[] execVM "server\AutoClosingDoors.sqf";

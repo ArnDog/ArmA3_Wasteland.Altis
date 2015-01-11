@@ -6,7 +6,7 @@
 //	@file Author: BadVolt
 //	@file Description: Entering password and open the doors for duration. Then closes them.
 
-#define DURATION 10
+#define DURATION 15
 
 _building = cursorTarget;
 _doorsAmount = [_building] call fn_getDoorsAmount;
@@ -18,7 +18,10 @@ waitUntil {!(isNil "OutputText")};
 
 if (OutputText == _building getVariable ["password",""]) then {
 	for "_i" from 1 to _doorsAmount do {
-		//Unlock Doors
+		//Unlock Doors 
+    //Check for script call in the statement if errors
+    //configfile >> "CfgVehicles" >> "Land_Dome_Big_F" >> "UserActions" >> "OpenDoor_1" >> "statement"
+		[_building, format ['Door_%1A_move',_i], format ['Door_%1B_move',_i]] execVM "\A3\Structures_F\scripts\TwoWingSlideDoor_open.sqf";
 		[_building, format ['Door_%1_rot',_i], format ['Door_Handle_%1_rot_1',_i] , format ['Door_Handle_%1_rot_2',_i]] execVM "\A3\Structures_F\scripts\Door_open.sqf";
 		_building setVariable [format ["bis_disabled_Door_%1",_i],0,true];
 

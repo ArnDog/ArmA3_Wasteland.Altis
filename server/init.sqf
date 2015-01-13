@@ -369,3 +369,6 @@ if (["A3W_serverMissions"] call isConfigOn) then
 
 //Start door auto-closing
 [] execVM "server\AutoClosingDoors.sqf";
+
+//Addons server-side config values to clients
+[] execVM "addons\UAV_Control\server.sqf";

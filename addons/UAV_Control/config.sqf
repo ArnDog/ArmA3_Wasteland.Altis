@@ -1,1 +1,1 @@
-A3W_onlyUavOwner = true;              //Allow usage for uav only for person who purchased it (true/false)
+uav_control_permission = "owner"; // Scope for who is able to access the UAV controls ("owner", "group", "side")

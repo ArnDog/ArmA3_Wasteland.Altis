@@ -17,3 +17,8 @@
 [_this, "cratemoney"] call mf_init;
 [_this, "drugs"] call mf_init;
 [_this, "cctv"] call mf_init;
+
+if (["A3W_atmEnabled"] call isConfigOn) then
+{
+	[_this, "atm"] call mf_init;
+};

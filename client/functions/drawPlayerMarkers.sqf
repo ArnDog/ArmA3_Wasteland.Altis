@@ -81,7 +81,6 @@ A3W_mapDraw_thread = [] spawn
 			_isIndie = !(playerSide in [BLUFOR,OPFOR]);
 			_mapIconsEnabled = difficultyEnabled "map";
 
-			if (IS_IN_GROUP(_uavOwner)) then
 			_allUAVs = allUnitsUAV;
 			_allDeadMen = allDeadMen;
 			_playableUnits = playableUnits;
@@ -102,7 +101,6 @@ A3W_mapDraw_thread = [] spawn
 					_color = if (group _uavOwner == group player) then { [0,1,0,1] } else { [1,1,1,1] };
 					_pos = if (_mapIconsEnabled) then { DEFAULT_ICON_POS(_uav) } else { getPosASLVisual _uav };
 
-			if (IS_IN_GROUP(_x) || (_newUnit getVariable ["playerSpawning", false] && IS_IN_GROUP(_newUnit))) then
 					_newArrayIcons pushBack [_icon, _color, _pos, 24, 24, getDir _uav, "", 1]; // draw icon
 
 					if (showPlayerNames) then
@@ -112,7 +110,6 @@ A3W_mapDraw_thread = [] spawn
 				};
 			} forEach _allUAVs;
 
-			if (IS_IN_GROUP(_x) && !(_x getVariable ["playerSpawning", false])) then
 			{
 				_newUnit = _x getVariable ["newRespawnedUnit", objNull];
 

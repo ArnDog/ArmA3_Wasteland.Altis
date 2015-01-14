@@ -63,8 +63,8 @@ loadScreen = "mapConfig\Loading.jpg";
 #include "addons\AF_Keypad\AF_KP_defines.hpp"
 #include "addons\AF_Keypad\AF_KP_dialogs.hpp"
 
-#include "addons\bank\ui.hpp"
-#include "addons\bank\bank_menu.hpp"
+//#include "addons\bank\ui.hpp"
+//#include "addons\bank\bank_menu.hpp"
 
 #include "addons\cctv\ui.hpp"
 #include "addons\cctv\laptop_flat_menu.hpp"

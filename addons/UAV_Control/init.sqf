@@ -1,8 +1,12 @@
-if (["A3W_onlyUavOwner"] call isConfigOn) then
+if (isServer) exitWith {};
+
+call compile preprocessFileLineNumbers "addons\UAV_Control\config.sqf";
+
+if (A3W_onlyUavOwner) then
 {
   [] spawn {
     while {true} do {
-      waitUntil {sleep 0.5; !(isNull (getConnectedUAV player))};
+      waitUntil {sleep 0.1; !(isNull (getConnectedUAV player))};
       _uav = getConnectedUAV player;
       //Add keychain check in future
       if (((_uav getVariable ["ownerUID",""]) != (getPlayerUID player)) && !(_uav isKindOf "UAV_01_base_F")) then {

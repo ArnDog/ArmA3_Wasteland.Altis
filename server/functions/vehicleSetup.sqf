@@ -84,6 +84,16 @@ switch (true) do
 	{
 		_vehicle addMagazine "300Rnd_20mm_shells";
 	};
+	case (_class isKindOf "UAV_02_base_F"):
+	{
+		_vehicle removeMagazineTurret ["240Rnd_CMFlare_Chaff_Magazine",[-1]];
+		_vehicle addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine", [-1]];
+	};
+	case ({_class isKindOf _x} count ["B_Plane_CAS_01_F", "O_Plane_CAS_02_F"] > 0):
+	{
+		_vehicle removeMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine", [-1]];
+		_vehicle addMagazineTurret ["300Rnd_CMFlare_Chaff_Magazine", [-1]];
+	};
 };
 
 _weapons = getArray (configFile >> "CfgVehicles" >> _class >> "weapons");

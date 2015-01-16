@@ -44,6 +44,7 @@ switch (toLower _action) do
 	{
 		_value resize 2;
 		{ _value set [_forEachIndex, round _x] } forEach _value;
+    _message = format ['[NOTICE] %1 used the admin menu to teleport', name player];
 	};
 	case "vehicle":
 	{
@@ -72,5 +73,6 @@ if (!isNil "_message" && {_message != ""}) then
 	[[_message, getPlayerUID player, _flagChecksum, true], "A3W_fnc_chatBroadcast", true] call A3W_fnc_MP;
 	systemChat format ["Now everyone knows about: %1. What a shame.",_message];
 };
+
 
 [[profileName, getPlayerUID player, _action, _value, _flagChecksum], "A3W_fnc_adminMenuLog", false] call A3W_fnc_MP;

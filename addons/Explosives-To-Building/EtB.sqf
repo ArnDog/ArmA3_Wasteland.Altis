@@ -1,6 +1,6 @@
 /*
 	Stealthstick's "Explosive-To-Vehicle" Script
-	-Allows players to attach their explosive Bcharges to any vehicle.
+	-Allows players to attach their explosive charges to any vehicle.
 */
 
 EtB_ChargeCheck =
@@ -8,8 +8,8 @@ EtB_ChargeCheck =
 	_charge = _this select 0;
 	_unit = _this select 1;
 	_hasIt = _charge in (magazines _unit);
-  _boundingBoxVar = abs (((boundingBoxReal cursorTarget) select 0) select 1) + 3;
-  _validBuilding = (cursorTarget isKindOf "Building" && {((cursorTarget distance _unit)<_boundingBoxVar) && {!(cursorTarget getVariable ["allowDamage",true]) && {!((typeOf cursorTarget) in ["Land_Dome_Big_F","Land_Dome_Small_F"])}}});
+	_boundingBoxVar = abs (((boundingBoxReal cursorTarget) select 0) select 1) + 3;
+	_validBuilding = (cursorTarget isKindOf "Building" && {((cursorTarget distance _unit)<_boundingBoxVar) && {!(cursorTarget getVariable ["allowDamage",true]) && {!((typeOf cursorTarget) in ["Land_Dome_Big_F","Land_Dome_Small_F"])}}});
 	_return = (_hasIt && _validBuilding && alive _unit);
 	_return
 };
@@ -19,53 +19,37 @@ EtB_TouchOff =
 	_array = _this select 3;
 	_unit = _array select 0;
 	_explosives = _unit getVariable ["Bcharges",[]];
-  _Buildings = _unit getVariable ["Bbuildings",[]];
-  
-	{    
+	Buildings = _unit getVariable ["Bbuildings",[]];
+
+	{	
 		if(alive _x) then
 		{
-      _Building=_Buildings select _forEachIndex;
-      
-      //[[netId _Building, true], "A3W_fnc_allowDamageState", _Building] call A3W_fnc_MP;
-      [[_Building,true], "A3W_fnc_allowDamage", true, false, true] call BIS_fnc_MP;
-      
-      _Building setVariable ["allowDamage",true,true];
-      
-      _isDestructable = (getText(configfile >> "CfgVehicles" >> typeOf _Building >> "destrType")!="destructNo");
-      _hasDestructionEffects = (count((configfile >> "CfgVehicles" >> typeOf _Building >> "DestructionEffects" ) call BIS_fnc_getCfgSubClasses)>0);
-      sleep 1;
-    
-      //"Bo_GBU12_LGB"
-      /********************
-          private ["_target"];
-          _target = <<your_ammobox>>;
-          // create and attach charge
-          private ["_charge"];
-          _charge = "DemoCharge_Remote_Ammo_Scripted" createVehicle position player; 
-          _charge attachTo [_target, [0,0,0.2]]; 
-          _charge setVectorDirAndUp [[0.5,0.5,0],[-0.5,0.5,0]];
-          // now detonate charge
-          detach _charge; //Important!
-          _charge setDamage 1;
-      ********************/
-			"HelicopterExplobig" createVehicle (position _x);
+		_Building=_Buildings select _forEachIndex;
+	
+		[[_Building,true], "A3W_fnc_allowDamage", true, false, true] call BIS_fnc_MP;
+		_Building setVariable ["allowDamage",true,true];
+		
+		_isDestructable = (getText(configfile >> "CfgVehicles" >> typeOf _Building >> "destrType")!="destructNo");
+		_hasDestructionEffects = (count((configfile >> "CfgVehicles" >> typeOf _Building >> "DestructionEffects" ) call BIS_fnc_getCfgSubClasses)>0);
+		sleep 1;
+	
+		"HelicopterExplobig" createVehicle (position _x);
 			"HelicopterExplobig" createVehicle (position _x);
 			deleteVehicle _x;
-      
-      if (_isDestructable && _hasDestructionEffects) then {
-        sleep 1;
-        //[[netId _Building, false], "A3W_fnc_allowDamageState", _Building] call A3W_fnc_MP;
-        [[_Building,false], "A3W_fnc_allowDamage", true, false, true] call BIS_fnc_MP;
-        _Building setVariable ["allowDamage",false,true];
-      }else{
-        deleteVehicle _Building;
-      };
+
+		if (_isDestructable && _hasDestructionEffects) then {
+		sleep 1;
+		[[_Building,false], "A3W_fnc_allowDamage", true, false, true] call BIS_fnc_MP;
+		_Building setVariable ["allowDamage",false,true];
+		}else{
+		deleteVehicle _Building;
 		};
-    
+		};
+	
 	} forEach _explosives;
-    
+	
 	_unit setVariable ["Bcharges",[]];
-  _unit setVariable ["Bbuildings",[]];
+	_unit setVariable ["Bbuildings",[]];
 };
 
 EtB_UnitCheck =
@@ -104,8 +88,8 @@ EtB_AttachCharge =
 	};
 	
 	_Building = cursorTarget;
-	_explosive = _class createVehicle [0,0,0];
-  _explosive attachTo [_unit, [0, 0, 0]]; 
+	_explosive = _class createVehicle (position player);
+	//_explosive attachTo [_unit, [0, 0, 0]]; 
 	_random0 = random 180;
 	_random1 = random 180;
 	[_explosive,_random0,_random1] call BIS_fnc_SetPitchBank;
@@ -118,10 +102,10 @@ EtB_AttachCharge =
 		_random1 = _this select 4;
 		
 		sleep 1.5;
-		_explosive attachTo [_Building,[0, 0, 0]];
+		//_explosive attachTo [_Building,[0, 0, 0]];
 		[_explosive,_random0,_random1] call BIS_fnc_SetPitchBank;
 		_unit setVariable ["Bcharges",(_unit getVariable ["Bcharges",[]]) + [_explosive]];
-    _unit setVariable ["Bbuildings",(_unit getVariable ["Bbuildings",[]]) + [_Building]];
+	_unit setVariable ["Bbuildings",(_unit getVariable ["Bbuildings",[]]) + [_Building]];
 	};
 };
 

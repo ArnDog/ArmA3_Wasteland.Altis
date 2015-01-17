@@ -58,6 +58,13 @@ switch (_boxType) do
 			["mag", "30Rnd_65x39_caseless_green", RANDOM_BETWEEN(4,8)],
 			["mag", "9Rnd_45ACP_Mag", RANDOM_BETWEEN(1,5)]
 		];
+    
+    //Add thermal scope
+    {
+      if ((random(1))<0.15) then {
+        _boxItems pushBack ["itm", _x, 1];
+      };
+    } forEach ["optic_tws","optic_tws_mg","optic_Nightstalker"];
 	};
 	case "mission_Main_A3snipers":
 	{
@@ -70,13 +77,6 @@ switch (_boxType) do
 			["itm", "optic_DMS", RANDOM_BETWEEN(1,2)]
 		];
 	};
-  
-  //Add thermal scope
-  {
-    if ((random(1))<0.15) then {
-      _boxItems pushBack ["itm", _x, 1];
-    };
-  } forEach ["optic_tws","optic_tws_mg","optic_Nightstalker"];
 };
-
+  
 [_box, _boxItems] call processItems;

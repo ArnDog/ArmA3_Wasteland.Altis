@@ -61,16 +61,20 @@ A3W_cctvCameraSaving = 1;          // Save cctv cameras between restarts (0 = no
 A3W_mineSaving = 1;         	   // Save mines between server restarts (0 = no, 1 = yes)
 A3W_mineLifetime = 2*24;           // Maximum lifetime in hours for mines across server restarts (0 = no time limit)
 A3W_objectLifetime = 5*24;         // Maximum lifetime in hours for saved objects (baseparts, crates, etc. except vehicles) across server restarts (0 = no time limit)
+A3W_cctvCameraSaving = 1;          // Save cctv cameras between restarts (0 = no, 1 = yes)
+A3W_mineSaving = 1;         	     // Save mines between server restarts (0 = no, 1 = yes)
+A3W_mineLifetime = 2*24;           // Maximum lifetime in hours for mines across server restarts (0 = no time limit)
 A3W_vehicleLifetime = 0;           // Maximum lifetime in hours for saved vehicles across server restarts, regardless of usage (0 = no time limit)
 A3W_vehicleMaxUnusedTime = 2*24;   // Maximum parking time in hours after which unused saved vehicles will be marked for deletion (0 = no time limit)
 A3W_storageLifetime = 0;           // Maximum lifetime in horus for player's private storage (0 = no time limit)
 
 PDB_PlayerFileID = "A3W_";         // Player savefile prefix (change this in case you run multiple servers from the same folder)
 PDB_ObjectFileID = "A3W_";         // Object savefile prefix (change this in case you run multiple servers from the same folder)
+PDB_VehicleFileID = "A3W_";        // Vehicle savefile prefix (change this in case you run multiple servers from the same folder)
 PDB_MessagesFileID = "A3W_";       // Messages savefile prefix (change this in case you run multiple servers from the same folder)
 PDB_AdminLogFileID = "A3W_";       // Admin log savefile prefix (change this in case you run multiple servers from the same folder)
 PDB_HackerLogFileID = "A3W_";      // Hacker log savefile prefix (change this in case you run multiple servers from the same folder)
-PDB_PlayersListFileID = "A3W_";     // PlayerList savefile prefix (change this in case you run multiple servers from the same folder)
+PDB_PlayersListFileID = "A3W_";    // PlayerList savefile prefix (change this in case you run multiple servers from the same folder)
 
 
 A3W_vehicle_saveInterval = 300;     // Number of seconds between vehicle saves

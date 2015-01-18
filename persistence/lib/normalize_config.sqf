@@ -55,9 +55,11 @@ diag_log format["[INFO] config: A3W_boxSaving = %1", cfg_boxSaving_on];
 diag_log format["[INFO] config: A3W_warchestSaving = %1", cfg_warchestSaving_on];
 diag_log format["[INFO] config: A3W_warchestMoneySaving = %1", cfg_warchestMoneySaving_on];
 diag_log format["[INFO] config: A3W_baseSaving = %1", cfg_baseSaving_on];
+diag_log format["[INFO] config: A3W_mineSaving = %1", cfg_MineSaving_on];
 
 
 diag_log format["[INFO] config: A3W_objectLifetime = %1", A3W_objectLifetime];
+diag_log format["[INFO] config: A3W_mineLifetime = %1", A3W_mineLifetime];
 diag_log format["[INFO] config: A3W_object_saveInterval = %1", A3W_object_saveInterval];
 diag_log format["[INFO] config: A3W_player_saveInterval = %1", A3W_player_saveInterval];
 diag_log format["[INFO] config: A3W_playersList_saveInterval = %1", A3W_playersList_saveInterval];

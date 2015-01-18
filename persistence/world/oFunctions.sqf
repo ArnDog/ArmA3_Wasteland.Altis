@@ -60,7 +60,6 @@ o_isSaveable = {
     (cfg_staticWeaponSaving_on)
   };
 
-  //diag_log format ["Class: %1, isMine: %2, isSaveableMine: %3", typeOf _obj, [_obj] call sh_isMine, [_obj] call sh_isSaveableMine];
   if (([_obj] call sh_isMine)&&([_obj] call sh_isSaveableMine)) exitWith {
     (cfg_MineSaving_on)
   };
@@ -163,7 +162,7 @@ o_restoreMineVisibility = {
   } forEach _mineVisibility;
 };
 
-o_restoreObject = {_this spawn {
+o_restoreObject = {
   //diag_log format["%1 call o_restoreObject", _this];
   ARGVX3(0,_data_pair,[]);
   
@@ -245,6 +244,7 @@ o_restoreObject = {_this spawn {
 
   def(_isMine);
   _isMine = [_class] call sh_isMine;
+  
   def(_obj);
   if (_isMine) then {
     _obj = createMine[_class, _pos, [], 0];
@@ -295,7 +295,7 @@ o_restoreObject = {_this spawn {
     //delay the allow damage to allow the box to settle
     sleep 5;
   _obj setVariable ["allowDamage", _allowDamage,true];
-  _obj allowDamage _allowDamage;
+    _obj allowDamage _allowDamage;
   };
 
   //broadcast the spawn beacon
@@ -352,7 +352,7 @@ o_restoreObject = {_this spawn {
   };
 
   //AddAi to vehicle
-  if ([_obj] call sh_isUAV) then {
+  if ([_obj] call sh_isUAV_UGV) then {
     createVehicleCrew _obj;
   };
 
@@ -361,8 +361,7 @@ o_restoreObject = {_this spawn {
     tracked_objects_list pushBack _obj;
   };
 
-
-};};
+};
 
 
 
@@ -454,7 +453,7 @@ o_fillVariables = {
   if (!isNil "_r3fSide" && {typeName _r3fSide == typeName sideUnknown}) then {
     _variables pushBack ["R3F_Side", str _r3fSide];
   };
-  
+
   def(_password);
   if (_obj isKindOf "Building") then {
     _doorsAmount = [_obj] call fn_getDoorsAmount;
@@ -559,7 +558,6 @@ o_addSaveObject = {
   ARGVX3(0,_list,[]);
   ARGVX3(1,_obj,objNull);
   
-
   if (not([_obj] call o_isSaveable)) exitWith {};
   if (!(alive _obj)) exitWith {};
 
@@ -570,34 +568,16 @@ o_addSaveObject = {
   def(_dir);
   def(_damage);
   def(_allowDamage);
+  def(_totalHours);
 
-  _class = typeOf _obj;
+  _class = [_obj] call o_getVehClass;
    _netId = netId _obj;
   _pos = ASLtoATL getPosWorld _obj;
   _dir = [vectorDir _obj, vectorUp _obj];
   _damage = damage _obj;
   _allowDamage = if (_obj getVariable ["allowDamage", false]) then { 1 } else { 0 };
- 
- 
-  def(_spawnTime);
-  def(_hoursAlive);
-  _spawnTime = _obj getVariable "baseSaving_spawningTime";
-  _hoursAlive = _obj getVariable "baseSaving_hoursAlive";
-  
-  if (isNil "_spawnTime") then {
-    _spawnTime = diag_tickTime;
-    _obj setVariable ["baseSaving_spawningTime", _spawnTime, true];
-  };
-  
-  if (isNil "_hoursAlive") then {
-    _hoursAlive = 0;
-    _obj setVariable ["baseSaving_hoursAlive", _hoursAlive, true];  
-  };
-  
-  def(_totalHours);
-  _totalHours = _hoursAlive + (diag_tickTime - _spawnTime) / 3600;
- 
-  
+  _totalHours = [_obj] call o_getHoursAlive;
+
   init(_variables,[]);
   [_obj,_variables] call o_fillVariables;
  
@@ -911,7 +891,6 @@ o_loadObjects = {
 
     }} forEach _objects;
     _objects = _objects - [objNull];
-    sleep 10;
   } forEach o_loadingOrderArray;
   
   diag_log format["A3Wasteland - Total database objects: %1 ", _total_objects];

@@ -196,7 +196,7 @@ _onCaptureFinished =
 	_spawnInfantry = [true,false]; //Land, Water
 	_spawnVehicles = [true,false,false]; //Land,Water,Air
 	_stayStill = false; //Stay still and do not patrol
-	_infantryAlways = _radius*0.015; //1.5% from radius
+	_infantryAlways = _radius*0.03; //3% from radius
 	_infantryRandom = 0;
 	_vehiclesAlways = 0;
 	_vehiclesRandom = 0;
@@ -307,7 +307,7 @@ _onCaptureFinished =
 			_pos = getMarkerPos _captureName;
 			_radius = _this select 1;
 			_territoryID = _this select 2;
-			_amountOfMines=round(_radius*0.5); //We need a LOT of mines.
+			_amountOfMines=round(_radius*2); //We need a LOT of mines.
 			_minesArray = [
 				"APERSBoundingMine",
 				"APERSMine",

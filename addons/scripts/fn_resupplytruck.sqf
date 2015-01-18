@@ -32,7 +32,7 @@ _price = 1000; // price = 1000 for vehicles not found in vehicle store. (e.g. St
 {
 	if (_vehClass == _x select 1) exitWith
 	{
-		_price = (ceil (((_x select 2) / PRICE_RELATIONSHIP) / 5)) * 5;
+		_price = (ceil (((_x select 2) / PRICE_RELATIONSHIP) / 5)) * 1;
 	};
 } forEach (call allVehStoreVehicles + call staticGunsArray);
 

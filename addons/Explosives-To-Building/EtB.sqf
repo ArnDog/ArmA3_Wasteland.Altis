@@ -33,7 +33,7 @@ EtB_TouchOff =
 		_hasDestructionEffects = (count((configfile >> "CfgVehicles" >> typeOf _Building >> "DestructionEffects" ) call BIS_fnc_getCfgSubClasses)>0);
 		sleep 1;
 	
-		"HelicopterExplobig" createVehicle (position _x);
+      "HelicopterExplobig" createVehicle (position _x);
 			"HelicopterExplobig" createVehicle (position _x);
 			deleteVehicle _x;
 
@@ -88,7 +88,8 @@ EtB_AttachCharge =
 	};
 	
 	_Building = cursorTarget;
-	_explosive = _class createVehicle (getPosWorld player);
+	_explosive = _class createVehicle (position player);
+  _explosive setPosWorld (getPosWorld player);
 	//_explosive attachTo [_unit, [0, 0, 0]]; 
 	_random0 = random 180;
 	_random1 = random 180;

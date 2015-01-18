@@ -19,7 +19,7 @@ EtB_TouchOff =
 	_array = _this select 3;
 	_unit = _array select 0;
 	_explosives = _unit getVariable ["Bcharges",[]];
-	Buildings = _unit getVariable ["Bbuildings",[]];
+	_Buildings = _unit getVariable ["Bbuildings",[]];
 
 	{	
 		if(alive _x) then
@@ -88,7 +88,7 @@ EtB_AttachCharge =
 	};
 	
 	_Building = cursorTarget;
-	_explosive = _class createVehicle (position player);
+	_explosive = _class createVehicle (getPosWorld player);
 	//_explosive attachTo [_unit, [0, 0, 0]]; 
 	_random0 = random 180;
 	_random1 = random 180;
